@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Design System - Marynez Corretora</title>
+    
+    <!-- Scripts baseados nas referências -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        deep: '#030303',
+                        surface: '#0d0d0d',
+                        panel: '#151515',
+                        border: '#262626',
+                        accent: '#D4AF37', // Gold 
+                        accentGlow: 'rgba(212, 175, 55, 0.4)',
+                        text: '#F5F5F5',
+                        muted: '#8A8A8A',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 3s linear infinite',
+                        'beam': 'spin 2s linear infinite',
+                        'shimmer': 'shimmer 1.5s infinite',
+                        'text-slide': 'textSlide 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'pulse-glow': 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' }
+                        },
+                        shimmer: {
+                            from: { transform: 'translateX(-100%) skewX(-15deg)' },
+                            to: { transform: 'translateX(200%) skewX(-15deg)' }
+                        },
+                        textSlide: {
+                            '0%': { transform: 'translateY(110%)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '1', filter: 'drop-shadow(0 0 10px var(--tw-colors-accent))' },
+                            '50%': { opacity: '.5', filter: 'drop-shadow(0 0 2px var(--tw-colors-accent))' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base e Reset */
+        body {
+            background-color: #030303;
+            color: #F5F5F5;
+            -webkit-font-smoothing: antialiased;
+            scrollbar-width: thin;
+            scrollbar-color: #262626 #030303;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030303;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #262626;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Utilidades Glassmorphism e Flashes */
+        .glass-panel {
+            background: rgba(13, 13, 13, 0.65);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Efeito Flashlight do Gemini */
+        .flashlight-card {
+            background: rgba(255, 255, 255, 0.01);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .flashlight-card::before {
+            content: "";
+            position: absolute;
+            inset: 0px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(212, 175, 55, 0.15),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .flashlight-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Animações de Scroll Genéricas */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            filter: blur(10px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .animate-on-scroll.animate {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
+        }
+
+        /* Gradientes e Texturas de Fundo */
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255, 0.03) 1px, transparent 1px);
+        }
+        
+        .glow-blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: 0;
+            pointer-events: none;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        /* Clip path letters para Typography */
+        .text-clip-anim span {
+            display: inline-block;
+            transform: translateY(110%);
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s;
+        }
+        .text-clip-anim.animate span {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Beam Buttons Custom Border */
+        .beam-border {
+            position: relative;
+        }
+        .beam-border::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background: conic-gradient(from 0deg, transparent 0 340deg, #D4AF37 360deg);
+            animation: spin 2s linear infinite;
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .beam-border:hover::before {
+            opacity: 1;
+        }
+        
+        .mask-image-radial {
+            mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+        }
+    </style>
+</head>
+<body class="bg-deep relative overflow-x-hidden selection:bg-accent selection:text-black">
+
+    <!-- Globais / Noise Background -->
+    <div class="fixed inset-0 pointer-events-none opacity-[0.02] z-50 bg-[url('https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/noise.png')]"></div>
+
+    <!-- Navegação Flutuante -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-[60] glass-panel px-6 py-3 rounded-full flex items-center gap-6 shadow-2xl animate-on-scroll">
+        <a href="#hero" class="text-xs uppercase tracking-widest font-mono text-muted hover:text-accent transition-colors">Intro</a>
+        <a href="#typography" class="text-xs uppercase tracking-widest font-mono text-muted hover:text-accent transition-colors">Tipo</a>
+        <a href="#colors" class="text-xs uppercase tracking-widest font-mono text-muted hover:text-accent transition-colors">Cores</a>
+        <a href="#components" class="text-xs uppercase tracking-widest font-mono text-muted hover:text-accent transition-colors">Components</a>
+        <a href="#icons" class="text-xs uppercase tracking-widest font-mono text-muted hover:text-accent transition-colors">Ícones</a>
+    </nav>
+
+    <!-- 1. HERO - DEMONSTRAÇÃO DO DESIGN SYSTEM -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden bg-grid">
+        <div class="glow-blob top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="glow-blob top-0 left-0 -translate-x-1/2 -translate-y-1/2 opacity-50 animation-delay-2000"></div>
+
+        <div class="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center z-10">
+            <!-- Texto Principal -->
+            <div class="space-y-8 relative">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 glass-panel animate-on-scroll" style="transition-delay: 0.1s">
+                    <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                    <span class="text-xs font-mono uppercase tracking-widest text-muted">Design System v1.0</span>
+                </div>
+                
+                <h1 class="text-6xl lg:text-8xl font-serif text-white leading-tight animate-on-scroll" style="transition-delay: 0.2s">
+                    Elegância<br/>
+                    <span class="inline-block italic text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">em cada detalhe.</span>
+                </h1>
+                
+                <p class="text-lg text-muted max-w-md font-sans font-light animate-on-scroll leading-relaxed" style="transition-delay: 0.3s">
+                    Uma arquitetura de design criada para encantar. Focada no luxo, conversão e na narrativa visual para imóveis de alto padrão.
+                </p>
+
+                <div class="flex items-center gap-6 animate-on-scroll" style="transition-delay: 0.4s">
+                    <button class="group relative z-10 flex items-center justify-center overflow-hidden rounded-full p-[1px] leading-none">
+                        <span class="absolute inset-[-1000%] animate-beam bg-[conic-gradient(from_0deg,transparent_0_340deg,#D4AF37_360deg)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+                        <span class="relative flex h-full w-full items-center rounded-full bg-surface pt-4 pb-4 pr-8 pl-8 ring-1 ring-white/10 transition-colors group-hover:bg-[#0a0a0a]">
+                            <span class="absolute inset-0 overflow-hidden rounded-full">
+                                <span class="absolute top-0 left-0 h-full w-full -skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:animate-shimmer group-hover:opacity-100"></span>
+                            </span>
+                            <span class="relative z-10 font-sans font-medium text-white tracking-wide flex items-center gap-2">
+                                Explorar Componentes
+                                <iconify-icon icon="solar:arrow-right-linear" class="text-xl group-hover:translate-x-1 transition-transform text-accent"></iconify-icon>
+                            </span>
+                        </span>
+                    </button>
+                    
+                    <a href="#typography" class="text-sm font-mono tracking-widest uppercase hover:text-accent transition-colors flex items-center gap-2">
+                        <iconify-icon icon="solar:mouse-circle-linear" class="text-2xl animate-bounce"></iconify-icon>
+                        Scroll
+                    </a>
+                </div>
+            </div>
+
+            <!-- Demonstração Visual (Mockup Card) -->
+            <div class="relative animate-on-scroll" style="transition-delay: 0.5s">
+                <div class="absolute inset-0 bg-accent/20 blur-3xl rounded-full"></div>
+                
+                <div class="flashlight-card w-full max-w-md mx-auto aspect-[4/5] rounded-[2.5rem] p-6 flex flex-col justify-between group shadow-2xl relative z-10 glass-panel transform transition-transform duration-700 hover:rotate-y-5 hover:rotate-x-5 perspective-1000">
+                    <div class="flex justify-between items-start">
+                        <div class="bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 flex items-center gap-2">
+                            <iconify-icon icon="solar:star-fall-bold-duotone" class="text-accent"></iconify-icon>
+                            <span class="text-xs font-mono">Exclusivo</span>
+                        </div>
+                        <button class="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center hover:bg-accent transition-colors text-white hover:text-black">
+                            <iconify-icon icon="solar:heart-linear" class="text-xl"></iconify-icon>
+                        </button>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="w-full h-48 rounded-2xl overflow-hidden relative">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Mansão" />
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-serif text-white mb-1">Villa Paradiso</h3>
+                            <p class="text-sm text-muted font-sans flex items-center gap-2">
+                                <iconify-icon icon="solar:map-point-linear" class="text-accent"></iconify-icon>
+                                Jurerê Internacional, SC
+                            </p>
+                        </div>
+                        
+                        <div class="h-px w-full bg-gradient-to-r from-white/10 via-white/20 to-transparent my-4"></div>
+                        
+                        <div class="flex justify-between items-center">
+                            <div class="text-xl font-mono text-accent">R$ 15M</div>
+                            <div class="flex gap-3 text-sm text-gray-300">
+                                <span class="flex items-center gap-1"><iconify-icon icon="solar:bed-linear"></iconify-icon> 5</span>
+                                <span class="flex items-center gap-1"><iconify-icon icon="solar:bath-linear"></iconify-icon> 7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Floating Elements around -->
+                <div class="absolute -right-8 top-12 glass-panel p-4 rounded-2xl animate-float" style="animation-delay: 1s;">
+                    <iconify-icon icon="solar:shield-check-bold-duotone" class="text-3xl text-accent"></iconify-icon>
+                </div>
+                <div class="absolute -left-12 bottom-24 glass-panel p-4 rounded-2xl animate-float" style="animation-delay: 2s;">
+                    <div class="text-xs font-mono text-muted mb-1">Avaliação</div>
+                    <div class="text-lg font-bold text-white flex items-center gap-1">5.0 <iconify-icon icon="solar:star-bold" class="text-accent"></iconify-icon></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. TIPOGRAFIA -->
+    <section id="typography" class="py-24 relative border-t border-border bg-surface">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 animate-on-scroll">
+                <span class="text-xs font-mono uppercase tracking-widest text-accent mb-4 block">01 — Core System</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-white">Tipografia</h2>
+                <p class="text-muted mt-4 max-w-2xl text-lg">Uma combinação sofisticada entre a autoridade das serifas no Playfair Display e a clareza moderna da Plus Jakarta Sans.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- Font Families -->
+                <div class="space-y-12">
+                    <div class="glass-panel p-8 rounded-3xl animate-on-scroll">
+                        <div class="text-xs font-mono text-muted mb-6 uppercase tracking-widest border-b border-border pb-4">Primary Font — Headings</div>
+                        <div class="font-serif">
+                            <div class="text-6xl text-white mb-2">Playfair Display</div>
+                            <div class="text-xl text-accent italic mb-6">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br/>a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
+                            <div class="flex gap-4 text-sm font-mono text-muted">
+                                <span>Weights: 400, 600, 600i</span>
+                                <span>Google Fonts CDN</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-8 rounded-3xl animate-on-scroll" style="transition-delay: 0.1s">
+                        <div class="text-xs font-mono text-muted mb-6 uppercase tracking-widest border-b border-border pb-4">Secondary Font — Body & UI</div>
+                        <div class="font-sans">
+                            <div class="text-5xl text-white font-medium mb-4">Plus Jakarta Sans</div>
+                            <div class="text-lg text-muted mb-6">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br/>a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
+                            <div class="flex gap-4 text-sm font-mono text-muted">
+                                <span>Weights: 300, 400, 500, 600, 700</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Type Scale -->
+                <div class="space-y-8 animate-on-scroll" style="transition-delay: 0.2s">
+                    <div class="text-xs font-mono text-muted uppercase tracking-widest border-b border-border pb-4">Full Type Scale</div>
+                    
+                    <div class="flex flex-col gap-6">
+                        <div class="flex justify-between items-baseline border-b border-white/5 pb-4">
+                            <div class="font-serif text-6xl text-white">Heading 1</div>
+                            <div class="text-xs font-mono text-muted text-right">Serif<br/>60px / 1.1<br/>Weight: 600</div>
+                        </div>
+                        
+                        <div class="flex justify-between items-baseline border-b border-white/5 pb-4">
+                            <div class="font-serif text-5xl text-white">Heading 2</div>
+                            <div class="text-xs font-mono text-muted text-right">Serif<br/>48px / 1.2<br/>Weight: 600</div>
+                        </div>
+                        
+                        <div class="flex justify-between items-baseline border-b border-white/5 pb-4">
+                            <div class="font-serif text-4xl text-white">Heading 3</div>
+                            <div class="text-xs font-mono text-muted text-right">Serif<br/>36px / 1.2<br/>Weight: 400</div>
+                        </div>
+                        
+                        <div class="flex justify-between items-baseline border-b border-white/5 pb-4">
+                            <div class="font-sans text-2xl text-white">Heading 4</div>
+                            <div class="text-xs font-mono text-muted text-right">Sans<br/>24px / 1.3<br/>Weight: 500</div>
+                        </div>
+                        
+                        <div class="flex justify-between items-baseline border-b border-white/5 pb-4">
+                            <div class="font-sans text-lg text-gray-300">body-lg</div>
+                            <div class="text-xs font-mono text-muted text-right">Sans<br/>18px / 1.6<br/>Weight: 400</div>
+                        </div>
+
+                        <div class="flex justify-between items-baseline border-b border-white/5 pb-4">
+                            <div class="font-sans text-base text-gray-400">body-base</div>
+                            <div class="text-xs font-mono text-muted text-right">Sans<br/>16px / 1.6<br/>Weight: 400</div>
+                        </div>
+
+                        <div class="flex justify-between items-baseline border-b border-white/5 pb-4">
+                            <div class="font-mono text-xs text-accent uppercase tracking-widest">caption / label</div>
+                            <div class="text-xs font-mono text-muted text-right">Mono<br/>12px / 1.4<br/>Weight: 500 / Letter Spacing: .1em</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. CORES -->
+    <section id="colors" class="py-24 relative border-t border-border">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 animate-on-scroll">
+                <span class="text-xs font-mono uppercase tracking-widest text-accent mb-4 block">02 — The Palette</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-white">Sistema de Córes</h2>
+                <p class="text-muted mt-4 max-w-2xl text-lg">Tom profundos e elegantes que emanam exclusividade, contrastados vibrantes toques de dourado e brancos cristalinos.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                <!-- Color Cards -->
+                <div class="glass-panel rounded-2xl p-4 animate-on-scroll flashlight-card">
+                    <div class="h-24 rounded-xl bg-deep mb-4 border border-white/10 shadow-[inset_0_2px_10px_rgba(0,0,0,0.5)]"></div>
+                    <div class="font-mono text-xs uppercase tracking-wider text-white mb-1">Deep / Primary Bg</div>
+                    <div class="font-mono text-[10px] text-muted space-y-1">
+                        <div>HEX: #030303</div>
+                        <div>Role: Bg Main</div>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-4 animate-on-scroll flashlight-card" style="transition-delay: 0.1s">
+                    <div class="h-24 rounded-xl bg-surface mb-4 border border-white/10"></div>
+                    <div class="font-mono text-xs uppercase tracking-wider text-white mb-1">Surface / Cards</div>
+                    <div class="font-mono text-[10px] text-muted space-y-1">
+                        <div>HEX: #0D0D0D</div>
+                        <div>Role: Hover / Panel</div>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-4 animate-on-scroll flashlight-card" style="transition-delay: 0.2s">
+                    <div class="h-24 rounded-xl bg-border mb-4 border border-white/10"></div>
+                    <div class="font-mono text-xs uppercase tracking-wider text-white mb-1">Border / Neutral</div>
+                    <div class="font-mono text-[10px] text-muted space-y-1">
+                        <div>HEX: #262626</div>
+                        <div>Role: Lines / Dividers</div>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-4 animate-on-scroll flashlight-card" style="transition-delay: 0.3s">
+                    <div class="h-24 rounded-xl bg-accent mb-4 border border-white/10 shadow-[0_0_20px_rgba(212,175,55,0.2)]"></div>
+                    <div class="font-mono text-xs uppercase tracking-wider text-white mb-1">Accent / Gold</div>
+                    <div class="font-mono text-[10px] text-muted space-y-1">
+                        <div>HEX: #D4AF37</div>
+                        <div>Role: CTA / Highlights</div>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-4 animate-on-scroll flashlight-card" style="transition-delay: 0.4s">
+                    <div class="h-24 rounded-xl bg-text mb-4 border border-white/10"></div>
+                    <div class="font-mono text-xs uppercase tracking-wider text-white mb-1">Text / White</div>
+                    <div class="font-mono text-[10px] text-muted space-y-1">
+                        <div>HEX: #F5F5F5</div>
+                        <div>Role: Titles / High Contrast</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gradients & Context -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 animate-on-scroll">
+                <div class="p-8 rounded-3xl border border-border bg-gradient-to-br from-surface to-deep relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <h3 class="text-sm font-mono tracking-widest text-accent uppercase mb-4">Glow Backgrounds</h3>
+                    <div class="w-full h-32 rounded-xl border border-white/10 overflow-hidden relative">
+                        <div class="absolute w-64 h-64 bg-accent/30 rounded-full blur-3xl -top-10 -left-10 animate-float"></div>
+                        <div class="absolute inset-0 glass-panel"></div>
+                    </div>
+                    <p class="text-sm text-muted mt-4">Utilize manchas radiais desfocadas sob glass panels para criar profundidade.</p>
+                </div>
+
+                <div class="p-8 rounded-3xl border border-border bg-surface">
+                    <h3 class="text-sm font-mono tracking-widest text-white uppercase mb-4 border-b border-border pb-4">Contextual Usage</h3>
+                    <ul class="space-y-4 font-mono text-xs text-muted">
+                        <li class="flex justify-between"><span class="text-white">Text</span> <span>#F5F5F5 (AAA Contrast)</span></li>
+                        <li class="flex justify-between"><span class="text-white">Muted Text</span> <span>#8A8A8A (AA Contrast)</span></li>
+                        <li class="flex justify-between"><span class="text-white">Hover States</span> <span>Overlay bg-white/5 ou accent</span></li>
+                        <li class="flex justify-between"><span class="text-white">Disabled</span> <span>Opacity 0.5 & grayscale</span></li>
+                        <li class="flex justify-between text-red-400"><span class="text-red-400">Feedback Error</span> <span>#EF4444</span></li>
+                        <li class="flex justify-between text-green-400"><span class="text-green-400">Feedback Success</span> <span>#10B981</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. UI COMPONENTS -->
+    <section id="components" class="py-24 relative border-t border-border bg-gradient-to-b from-deep to-surface">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 animate-on-scroll">
+                <span class="text-xs font-mono uppercase tracking-widest text-accent mb-4 block">03 — Components Lab</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-white">Elementos Interativos</h2>
+                <p class="text-muted mt-4 max-w-2xl text-lg">Componentes responsivos equipados com micro-interações, backgrounds animados e focados na conversão.</p>
+            </div>
+
+            <div class="space-y-16">
+                <!-- Buttons -->
+                <div class="animate-on-scroll">
+                    <h3 class="text-sm font-mono uppercase tracking-widest text-muted border-b border-border pb-2 mb-8">1. Buttons</h3>
+                    <div class="flex flex-wrap items-center gap-8">
+                        
+                        <!-- Premium Beam Button -->
+                        <button class="group relative flex items-center justify-center overflow-hidden rounded-full p-[1px]">
+                            <span class="absolute inset-[-1000%] animate-beam bg-[conic-gradient(from_0deg,transparent_0_340deg,#D4AF37_360deg)]"></span>
+                            <span class="relative flex h-full w-full items-center rounded-full bg-deep px-8 py-3 ring-1 ring-white/10 group-hover:bg-surface transition-colors">
+                                <span class="relative z-10 font-sans font-medium text-white tracking-wide flex items-center gap-2">
+                                    Primary Action
+                                </span>
+                            </span>
+                        </button>
+
+                        <!-- Secondary Glass -->
+                        <button class="px-8 py-3 rounded-full border border-white/20 glass-panel font-sans font-medium text-white hover:bg-white/10 transition-colors flex items-center gap-2 group">
+                            Secondary
+                            <iconify-icon icon="solar:round-alt-arrow-right-linear" class="text-xl opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all"></iconify-icon>
+                        </button>
+
+                        <!-- Subtle Text -->
+                        <button class="font-sans font-medium text-muted hover:text-accent transition-colors flex items-center gap-1 group border-b border-transparent hover:border-accent pb-1">
+                            Ver Mais <iconify-icon icon="solar:arrow-right-linear" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Inputs & Form Controls -->
+                <div class="animate-on-scroll">
+                    <h3 class="text-sm font-mono uppercase tracking-widest text-muted border-b border-border pb-2 mb-8">2. Inputs & Controls</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl">
+                        
+                        <div class="space-y-4">
+                            <label class="text-xs font-mono uppercase tracking-widest text-muted">Input Padrão</label>
+                            <div class="relative group">
+                                <iconify-icon icon="solar:letter-linear" class="absolute left-4 top-1/2 -translate-y-1/2 text-muted group-focus-within:text-accent transition-colors text-xl"></iconify-icon>
+                                <input type="email" placeholder="Seu melhor e-mail" class="w-full bg-surface border border-border rounded-xl py-3 pl-12 pr-4 text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-muted/50">
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <label class="text-xs font-mono uppercase tracking-widest text-muted">Select</label>
+                            <div class="relative group">
+                                <iconify-icon icon="solar:city-linear" class="absolute left-4 top-1/2 -translate-y-1/2 text-muted group-focus-within:text-accent transition-colors text-xl"></iconify-icon>
+                                <select class="w-full bg-surface border border-border rounded-xl py-3 pl-12 pr-10 text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all appearance-none">
+                                    <option>Tipo de Imóvel</option>
+                                    <option>Cobertura</option>
+                                    <option>Casa em Condomínio</option>
+                                </select>
+                                <iconify-icon icon="solar:alt-arrow-down-linear" class="absolute right-4 top-1/2 -translate-y-1/2 text-muted text-xl pointer-events-none"></iconify-icon>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Cards & Badges -->
+                <div class="animate-on-scroll">
+                    <h3 class="text-sm font-mono uppercase tracking-widest text-muted border-b border-border pb-2 mb-8">3. Cards, Badges & Tooltips</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        
+                        <!-- Card 1 -->
+                        <div class="flashlight-card p-6 rounded-3xl group cursor-pointer border border-border hover:border-accent/50 transition-colors">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-accent/10 border border-accent/20 text-accent text-xs px-3 py-1 rounded-full font-mono">Premium</span>
+                                <span class="bg-surface border border-border text-white text-xs px-3 py-1 rounded-full font-mono relative group/tooltip">
+                                    <iconify-icon icon="solar:info-circle-linear" class="inline align-middle"></iconify-icon>
+                                    <!-- Tooltip -->
+                                    <span class="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] py-1 px-2 rounded opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Imóvel Verificado</span>
+                                </span>
+                            </div>
+                            <h4 class="text-xl font-serif text-white mb-2">Residencial Orion</h4>
+                            <p class="text-sm text-muted mb-6">4 Suítes • Vista Mar</p>
+                            
+                            <div class="w-full h-1 bg-surface rounded-full overflow-hidden mb-2">
+                                <div class="h-full bg-gradient-to-r from-accent/50 to-accent w-3/4 rounded-full"></div>
+                            </div>
+                            <div class="text-xs font-mono text-muted text-right">75% Concluído</div>
+                        </div>
+
+                        <!-- Card 2: Interactive Service Card -->
+                        <div class="glass-panel p-8 rounded-3xl group cursor-pointer relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="w-14 h-14 rounded-2xl bg-surface border border-border flex items-center justify-center mb-6 text-2xl text-accent group-hover:scale-110 transition-transform duration-500">
+                                <iconify-icon icon="solar:calculator-linear"></iconify-icon>
+                            </div>
+                            <h4 class="text-lg font-medium text-white mb-2">Avaliação de Imóvel</h4>
+                            <p class="text-sm text-muted">Descubra o valor real do seu patrimônio com nossa análise de mercado algorítmica.</p>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Navigation & Modais -->
+                <div class="animate-on-scroll">
+                    <h3 class="text-sm font-mono uppercase tracking-widest text-muted border-b border-border pb-2 mb-8">4. Navbar & Sections</h3>
+                    
+                    <div class="bg-black/50 p-8 rounded-3xl border border-border relative overflow-hidden">
+                        
+                        <!-- Nav mockup -->
+                        <div class="w-full glass-panel border border-white/10 rounded-2xl px-6 py-4 flex justify-between items-center mb-12">
+                            <div class="font-serif text-xl tracking-tight text-white flex items-center gap-2">
+                                <iconify-icon icon="solar:home-smile-bold-duotone" class="text-accent"></iconify-icon>
+                                Marynez
+                            </div>
+                            <div class="hidden md:flex gap-6 text-sm font-sans text-muted">
+                                <span class="hover:text-white cursor-pointer">Imóveis</span>
+                                <span class="hover:text-white cursor-pointer">Serviços</span>
+                                <span class="hover:text-white cursor-pointer">Sobre</span>
+                            </div>
+                            <button class="bg-white text-black text-sm px-5 py-2 rounded-full font-medium hover:bg-gray-200 transition-colors">Contato</button>
+                        </div>
+
+                        <!-- Modal Mockup -->
+                        <div class="absolute inset-x-0 bottom-0 top-1/2 bg-black/80 backdrop-blur-sm flex items-center justify-center -translate-y-4 opacity-0 hover:opacity-100 transition-all duration-500 hover:translate-y-0 group cursor-pointer">
+                            <div class="bg-surface border border-border p-6 rounded-2xl w-80 text-center shadow-2xl relative translate-y-10 group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1)">
+                                <button class="absolute top-4 right-4 text-muted hover:text-white"><iconify-icon icon="solar:close-circle-linear"></iconify-icon></button>
+                                <div class="w-12 h-12 rounded-full bg-accent/20 text-accent flex items-center justify-center mx-auto mb-4 text-2xl">
+                                    <iconify-icon icon="solar:letter-opened-bold-duotone"></iconify-icon>
+                                </div>
+                                <h4 class="text-lg font-serif text-white mb-2">Inscreva-se</h4>
+                                <p class="text-xs text-muted mb-4">Receba imóveis exclusivos antes de irem a mercado.</p>
+                                <button class="w-full bg-accent text-deep py-2 rounded-lg font-medium text-sm">Assinar</button>
+                            </div>
+                        </div>
+                        <div class="text-center text-xs font-mono text-muted uppercase tracking-widest pt-8 border-t border-white/5">Hover to reveal Modal</div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. ICONS -->
+    <section id="icons" class="py-24 relative border-t border-border bg-deep">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 animate-on-scroll">
+                <span class="text-xs font-mono uppercase tracking-widest text-accent mb-4 block">04 — Iconography</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-white">Ícones e Detalhes</h2>
+                <p class="text-muted mt-4 max-w-2xl text-lg">Coleção de ícones refinados (Solar Icons / Lucide) para representar serviços, comodidades e ações com micro-animações.</p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 animate-on-scroll">
+                <!-- Icon Cards with hover animations -->
+                <div class="glass-panel group flex flex-col items-center justify-center p-6 rounded-2xl border border-transparent hover:border-accent/30 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-lg">
+                    <iconify-icon icon="solar:home-angle-bold-duotone" class="text-3xl mb-3 text-muted group-hover:text-accent transition-colors group-hover:scale-110 duration-300"></iconify-icon>
+                    <span class="text-[10px] font-mono text-muted group-hover:text-white">House</span>
+                </div>
+                
+                <div class="glass-panel group flex flex-col items-center justify-center p-6 rounded-2xl border border-transparent hover:border-accent/30 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-lg">
+                    <iconify-icon icon="solar:key-minimalistic-square-3-bold-duotone" class="text-3xl mb-3 text-muted group-hover:text-accent transition-colors group-hover:rotate-12 duration-300"></iconify-icon>
+                    <span class="text-[10px] font-mono text-muted group-hover:text-white">Keys</span>
+                </div>
+
+                <div class="glass-panel group flex flex-col items-center justify-center p-6 rounded-2xl border border-transparent hover:border-accent/30 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-lg">
+                    <iconify-icon icon="solar:documents-bold-duotone" class="text-3xl mb-3 text-muted group-hover:text-accent transition-colors group-hover:-translate-y-1 duration-300"></iconify-icon>
+                    <span class="text-[10px] font-mono text-muted group-hover:text-white">Contract</span>
+                </div>
+
+                <div class="glass-panel group flex flex-col items-center justify-center p-6 rounded-2xl border border-transparent hover:border-accent/30 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-lg">
+                    <iconify-icon icon="solar:gps-bold-duotone" class="text-3xl mb-3 text-muted group-hover:text-accent transition-colors group-hover:scale-110 duration-300 animate-pulse"></iconify-icon>
+                    <span class="text-[10px] font-mono text-muted group-hover:text-white">Location</span>
+                </div>
+
+                <div class="glass-panel group flex flex-col items-center justify-center p-6 rounded-2xl border border-transparent hover:border-accent/30 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-lg">
+                    <iconify-icon icon="solar:bath-bold-duotone" class="text-3xl mb-3 text-muted group-hover:text-accent transition-colors group-hover:scale-110 duration-300"></iconify-icon>
+                    <span class="text-[10px] font-mono text-muted group-hover:text-white">Bath</span>
+                </div>
+
+                <div class="glass-panel group flex flex-col items-center justify-center p-6 rounded-2xl border border-transparent hover:border-accent/30 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-lg">
+                    <iconify-icon icon="solar:sofa-2-bold-duotone" class="text-3xl mb-3 text-muted group-hover:text-accent transition-colors group-hover:scale-110 duration-300"></iconify-icon>
+                    <span class="text-[10px] font-mono text-muted group-hover:text-white">Furnished</span>
+                </div>
+
+                <div class="glass-panel group flex flex-col items-center justify-center p-6 rounded-2xl border border-transparent hover:border-accent/30 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-lg">
+                    <iconify-icon icon="solar:routing-2-bold-duotone" class="text-3xl mb-3 text-muted group-hover:text-accent transition-colors group-hover:spin-slow duration-300"></iconify-icon>
+                    <span class="text-[10px] font-mono text-muted group-hover:text-white">Tour 360</span>
+                </div>
+
+                <div class="glass-panel group flex flex-col items-center justify-center p-6 rounded-2xl border border-transparent hover:border-accent/30 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-lg">
+                    <iconify-icon icon="solar:phone-calling-bold-duotone" class="text-3xl mb-3 text-muted group-hover:text-accent transition-colors group-hover:rotate-12 duration-300"></iconify-icon>
+                    <span class="text-[10px] font-mono text-muted group-hover:text-white">Contact</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-border py-12 bg-surface text-center">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col items-center">
+            <div class="w-12 h-12 rounded-full border border-white/10 glass-panel flex items-center justify-center mb-6">
+                <iconify-icon icon="solar:buildings-2-bold-duotone" class="text-2xl text-accent"></iconify-icon>
+            </div>
+            <h2 class="font-serif text-2xl text-white mb-2">Marynez Corretora</h2>
+            <p class="text-muted text-sm font-sans mb-8">Elegância e assertividade na busca pelo seu novo imóvel.</p>
+            <div class="text-xs font-mono text-muted uppercase tracking-widest">© 2026 Design System - Generated Setup</div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Intersection Observer para as animações de scroll
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        // Se for texto para revelar letter by letter
+                        if(entry.target.classList.contains('text-clip-anim')) {
+                            // Already handled by CSS
+                        }
+                        observer.unobserve(entry.target); // Anima só uma vez
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll, .text-clip-anim').forEach((el) => {
+                observer.observe(el);
+            });
+
+            // Efeito Flashlight acompanhando o mouse
+            document.querySelectorAll('.flashlight-card').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

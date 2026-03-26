@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marynez Corretora - Imóveis Alto Padrão</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Scripts & Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fbfaf8',
+                            100: '#f6f3eb',
+                            200: '#ebe1ce',
+                            300: '#dfceb1',
+                            400: '#d3ba94',
+                            500: '#c7a777', // Goldish Warm
+                            600: '#a38456',
+                            700: '#7f633d',
+                            800: '#5a462d',
+                            900: '#32281a',
+                            950: '#1e1810',
+                        },
+                        neutral: {
+                            50: '#FAFAFA',
+                            100: '#F4F4F5',
+                            200: '#E4E4E7',
+                            300: '#D4D4D8',
+                            400: '#A1A1AA',
+                            500: '#71717A',
+                            600: '#52525B',
+                            700: '#3F3F46',
+                            800: '#27272A',
+                            900: '#18181B'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'slide-up': 'animationIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmerSpin 2s linear infinite',
+                    },
+                    keyframes: {
+                        animationIn: {
+                            '0%': { opacity: 0, transform: 'translateY(30px)', filter: 'blur(10px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)', filter: 'blur(0px)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        shimmerSpin: {
+                            '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
+                            '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fafafa;
+            color: #18181B;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Utilidades de Glassmorphism e Fundo */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+        }
+
+        /* Mudança do Header no Scroll */
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .bg-glow {
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(199,167,119,0.12) 0%, rgba(250,250,250,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            top: -150px;
+            left: -150px;
+        }
+
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+        }
+
+        .text-transparent-outline {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Intersection Observer Animation Classes */
+        .animate-on-scroll { opacity: 0; animation-play-state: paused !important; }
+        .animate-on-scroll.animate {
+            animation-play-state: running !important;
+            animation: animationIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes animationIn {
+            0% { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+        }
+
+        @keyframes shimmerSpin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Shimmer Button from Design System */
+        .btn-shimmer {
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            background: #18181b;
+            color: white;
+            padding: 1px;
+            transition: transform 0.3s;
+        }
+        .btn-shimmer:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(24, 24, 27, 0.3), 0 8px 10px -6px rgba(199, 167, 119, 0.3);
+        }
+        .btn-shimmer::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: conic-gradient(from 0deg, transparent 0 340deg, #c7a777 360deg);
+            transform: translate(-50%, -50%);
+            animation: shimmerSpin 2.5s linear infinite;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .btn-shimmer:hover::before { opacity: 1; }
+        
+        .btn-shimmer-inner {
+            position: relative;
+            z-index: 10;
+            background: #18181b;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            padding: 0.875rem 2rem;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            gap: 0.5rem;
+        }
+        .btn-shimmer-inner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: skewX(-20deg);
+            transition: all 0.5s;
+        }
+        .btn-shimmer:hover .btn-shimmer-inner::after {
+            left: 200%;
+            transition: all 1.5s ease-in-out;
+        }
+
+        /* Efeito de Máscara Suave na Imagem do Hero */
+        .hero-img-wrapper {
+            clip-path: inset(0 0 0 0 round 2.5rem);
+        }
+
+        /* Flashlight Effect */
+        .flashlight-card {
+            background: rgba(255, 255, 255, 0.65);
+            position: relative;
+            overflow: hidden;
+        }
+        .flashlight-card::before {
+            content: "";
+            position: absolute;
+            inset: 0px;
+            background: radial-gradient(
+                400px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+                rgba(199, 167, 119, 0.15),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .flashlight-card:hover::before { opacity: 1; }
+
+    </style>
+</head>
+<body class="bg-grid relative antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white">
+
+    <!-- 1. HEADER FLUTUANTE / TRANSPARENTE -->
+    <header id="main-header" class="fixed top-0 w-full z-50 transition-all duration-300 py-4 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between transition-all duration-300">
+            
+            <!-- Logo Temporary -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-brand-900 rounded-xl flex items-center justify-center shadow-inner">
+                    <i data-lucide="home" class="w-5 h-5 text-brand-400"></i>
+                </div>
+                <span class="font-heading font-semibold text-xl tracking-tight text-neutral-900">Marynez</span>
+            </div>
+
+            <!-- Menu Desktop -->
+            <nav class="hidden md:flex items-center gap-8 font-sans text-sm font-medium text-neutral-600">
+                <a href="#inicio" class="hover:text-brand-600 transition-colors relative group">
+                    Início
+                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-brand-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#diferenciais" class="hover:text-brand-600 transition-colors relative group">
+                    Diferenciais
+                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-brand-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#servicos" class="hover:text-brand-600 transition-colors relative group">
+                    Serviços
+                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-brand-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#sobre" class="hover:text-brand-600 transition-colors relative group">
+                    Sobre
+                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-brand-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contato" class="hover:text-brand-600 transition-colors relative group">
+                    Contato
+                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-brand-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </nav>
+
+            <!-- CTA / Menu Mobile -->
+            <div class="flex items-center gap-4">
+                <button class="hidden md:flex bg-white/50 backdrop-blur border border-neutral-200 px-5 py-2.5 rounded-full text-sm font-medium text-neutral-700 hover:border-brand-500 hover:bg-brand-50 hover:text-brand-800 transition-all items-center gap-2 group shadow-sm">
+                    <i data-lucide="message-circle" class="w-4 h-4 text-brand-500"></i>
+                    Falar no WhatsApp
+                </button>
+
+                <!-- Toggle Menu Mobile -->
+                <button class="md:hidden w-10 h-10 flex items-center justify-center rounded-ull border border-neutral-200 bg-white/50 backdrop-blur text-neutral-900 hover:text-brand-600 transition-colors rounded-full">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. HERO PRINCIPAL -->
+    <main class="w-full">
+        <section id="inicio" class="relative min-h-[100svh] pt-32 pb-20 px-6 flex items-center justify-center overflow-hidden">
+            <!-- Glow assets & Ambient Background -->
+            <div class="bg-glow animate-float"></div>
+            <div class="absolute w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(199,167,119,0.08)_0%,rgba(250,250,250,0)_70%)] animate-float bottom-[-200px] right-[-200px] rounded-full pointer-events-none z-0" style="animation-delay: -3s;"></div>
+            
+            <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-12 lg:gap-8 items-center z-10 pt-4 lg:pt-10">
+                
+                <!-- Coluna Esquerda: Content -->
+                <div class="lg:col-span-6 space-y-8 relative z-20">
+                    
+                    <!-- Eyebrow -->
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border-brand-200 text-brand-800 text-xs font-semibold uppercase tracking-widest animate-on-scroll shadow-[0_4px_10px_rgba(0,0,0,0.02)]">
+                        <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                        Atendimento imobiliário com estratégia, confiança e proximidade
+                    </div>
+                    
+                    <!-- Headline -->
+                    <h1 class="text-5xl sm:text-6xl lg:text-[4rem] font-heading font-medium tracking-tight text-neutral-900 leading-[1.1] animate-on-scroll" style="animation-delay: 0.1s;">
+                        Encontre o imóvel certo <br class="hidden lg:block"/>
+                        <span class="text-transparent-outline block mt-2">com quem entende <br class="hidden lg:block"/>cada detalhe</span> 
+                        da negociação.
+                    </h1>
+                    
+                    <!-- Subheadline -->
+                    <p class="text-lg text-neutral-600 max-w-[500px] font-sans font-light leading-relaxed animate-on-scroll" style="animation-delay: 0.2s;">
+                        Compra, venda e locação com acompanhamento personalizado, visão de mercado e uma experiência segura do primeiro contato à assinatura.
+                    </p>
+                    
+                    <!-- CTAs -->
+                    <div class="space-y-4 animate-on-scroll" style="animation-delay: 0.3s;">
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                            <!-- Botão Primário Shimmer -->
+                            <button class="btn-shimmer h-[54px]">
+                                <span class="btn-shimmer-inner text-base font-medium">
+                                    Quero encontrar meu imóvel
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-400"></i>
+                                </span>
+                            </button>
+                            
+                            <!-- Botão Secundário Ghost -->
+                            <button class="h-[54px] px-8 rounded-full border border-neutral-300 glass hover:border-brand-500 hover:bg-brand-50 transition-all duration-300 font-medium text-neutral-800 flex items-center justify-center gap-2 group shadow-sm bg-white/60">
+                                Falar no WhatsApp
+                                <i data-lucide="message-circle" class="w-4 h-4 text-brand-500 group-hover:scale-110 transition-transform"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Microtexto -->
+                        <p class="text-[13px] text-neutral-500 font-medium flex items-center gap-1.5 mt-2">
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-brand-500"></i>
+                            Consultoria humanizada para comprar, vender ou investir com mais segurança.
+                        </p>
+                    </div>
+
+                    <!-- Mini-destaques (Chips) -->
+                    <div class="flex flex-wrap gap-2.5 pt-6 border-t border-neutral-200/60 animate-on-scroll" style="animation-delay: 0.4s;">
+                        <span class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg border border-neutral-200/80 bg-white/50 backdrop-blur text-[13px] text-neutral-700 font-medium">
+                            <i data-lucide="check" class="w-3.5 h-3.5 text-brand-500"></i> Atendimento personalizado
+                        </span>
+                        <span class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg border border-neutral-200/80 bg-white/50 backdrop-blur text-[13px] text-neutral-700 font-medium">
+                            <i data-lucide="check" class="w-3.5 h-3.5 text-brand-500"></i> Negociação segura
+                        </span>
+                        <span class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg border border-neutral-200/80 bg-white/50 backdrop-blur text-[13px] text-neutral-700 font-medium">
+                            <i data-lucide="check" class="w-3.5 h-3.5 text-brand-500"></i> Curadoria sob medida
+                        </span>
+                        <span class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg border border-neutral-200/80 bg-white/50 backdrop-blur text-[13px] text-neutral-700 font-medium">
+                            <i data-lucide="check" class="w-3.5 h-3.5 text-brand-500"></i> Suporte do início ao fim
+                        </span>
+                    </div>
+
+                </div>
+
+                <!-- Coluna Direita: Imagem Principal -->
+                <div class="lg:col-span-6 relative h-[500px] lg:h-[650px] w-full flex items-center justify-center lg:justify-end mt-12 lg:mt-0">
+                    
+                    <!-- Elemento Decorativo no fundo -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-100/50 to-brand-50/20 rounded-[2.5rem] transform rotate-3 scale-95 border border-brand-200/40 animate-on-scroll" style="animation-delay: 0.4s;"></div>
+
+                    <!-- Imagem da Hero -->
+                    <div class="hero-img-wrapper relative w-full max-w-[500px] aspect-[4/5] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] z-20 animate-on-scroll" style="animation-delay: 0.5s;">
+                        <!-- Overlay sutil -->
+                        <div class="absolute inset-0 bg-neutral-900/5 z-10 pointer-events-none transition-opacity duration-300 hover:opacity-0"></div>
+                        
+                        <img 
+                            src="assets/raw_files/e829204a-c23a-4b96-a0cb-f7a3d9f27a08.jpg" 
+                            alt="Corretora em atendimento exclusivo com cliente em imóvel de alto padrão" 
+                            class="w-full h-full object-cover relative z-0 transition-transform duration-[1.5s] ease-out hover:scale-[1.03]" 
+                            style="transform-origin: center;"
+                        />
+                    </div>
+
+                    <!-- Card Float 1: Especialista -->
+                    <div class="absolute bottom-10 -left-4 sm:-left-8 lg:-left-16 glass-card p-4 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] z-30 animate-float flex flex-col gap-3 animate-on-scroll flashlight-card border-white/80" style="animation-delay: 0.6s;">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-50 to-brand-100 flex items-center justify-center text-brand-600 border border-brand-200/50">
+                                <i data-lucide="award" class="w-6 h-6 text-brand-500"></i>
+                            </div>
+                            <div class="pr-2">
+                                <h4 class="font-semibold font-sans text-neutral-900 text-[15px] leading-tight mb-0.5">Especialista em imóveis</h4>
+                                <p class="text-[13px] text-neutral-500 font-medium">Atendimento consultivo</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Float 2: Experiência Segura -->
+                    <div class="absolute top-16 -right-2 sm:-right-4 lg:-right-8 glass-card py-3 px-4 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] z-30 animate-float flex items-center gap-3 animate-on-scroll flashlight-card border-white/80" style="animation-delay: 0.8s; animation-direction: reverse;">
+                        <div class="flex items-center gap-1.5">
+                            <div class="flex -space-x-2">
+                                <!-- Placeholders refinados usando UI faces limpas ou cores -->
+                                <div class="w-8 h-8 rounded-full border-2 border-white bg-neutral-200 bg-[url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80')] bg-cover"></div>
+                                <div class="w-8 h-8 rounded-full border-2 border-white bg-neutral-300 bg-[url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80')] bg-cover"></div>
+                            </div>
+                            <div class="w-8 h-8 rounded-full bg-neutral-900 flex items-center justify-center border-2 border-white z-10 shadow-sm">
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-brand-400 text-brand-400"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold font-sans text-neutral-900 text-sm leading-tight">Experiência mais segura</h4>
+                            <p class="text-[11px] text-neutral-500 font-medium">Eficiência garantida</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Scroll Hint Animado Sutil -->
+            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-60 hover:opacity-100 transition-opacity animate-on-scroll cursor-pointer" style="animation-delay: 1s;" onclick="window.scrollBy({top: window.innerHeight, behavior: 'smooth'})">
+                <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-500 font-medium">Explore</span>
+                <div class="w-px h-10 bg-gradient-to-b from-neutral-300 via-neutral-400 to-transparent animate-pulse-slow"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts e Lógicas Interativas -->
+    <script>
+        // Inicializa ícones Lucide
+        lucide.createIcons();
+
+        // Header Transparente -> Blur On Scroll
+        const header = document.getElementById("main-header");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 40) {
+                header.classList.add("scrolled");
+                header.classList.replace("py-4", "py-2.5");
+            } else {
+                header.classList.remove("scrolled");
+                header.classList.replace("py-2.5", "py-4");
+            }
+        });
+
+        // Efeito Flashlight / Mouse Tracking em Cards (Glassmorphism Interativo)
+        document.addEventListener("mousemove", (e) => {
+            document.querySelectorAll(".flashlight-card").forEach((card) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+
+        // Intersection Observer (Fade Up Animations One-Time)
+        (function () {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const inViewIO = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("animate");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const initAnimations = () => {
+                document.querySelectorAll(".animate-on-scroll").forEach((el) => {
+                    inViewIO.observe(el);
+                });
+            };
+            
+            if (document.readyState === 'loading') {
+                document.addEventListener("DOMContentLoaded", initAnimations);
+            } else {
+                initAnimations();
+            }
+        })();
+
+        // Efeito Parallax Leve na Imagem Principal (Performance Orientado)
+        const heroImg = document.querySelector('.hero-img-wrapper img');
+        if(heroImg) {
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const scrolled = window.scrollY;
+                        // Aplica apenas na primeira dobra
+                        if (scrolled < window.innerHeight) {
+                            heroImg.style.transform = `translateY(${scrolled * 0.05}px) scale(${1 + scrolled * 0.0001})`;
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+        }
+    </script>
+</body>
+</html>
