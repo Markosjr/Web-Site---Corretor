@@ -6,18 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <title>Maria Inês - Consultoria Imobiliária</title>
 
-    <!-- Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
 
-    <!-- Scripts & Tailwind -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- Tailwind Config -->
     <script>
         tailwind.config = {
             theme: {
@@ -80,7 +78,7 @@
             overflow-x: hidden;
         }
 
-        /* Ambient Glow Refinado */
+
         .bg-ambient {
             position: absolute;
             background: radial-gradient(circle, rgba(166, 141, 113, 0.06) 0%, rgba(249, 248, 246, 0) 65%);
@@ -89,7 +87,7 @@
             z-index: 0;
         }
 
-        /* 1. HEADER */
+
         #main-header {
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             animation: headerSlideDown 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -117,7 +115,7 @@
             padding-bottom: 0.75rem;
         }
 
-        /* 2. REVEALS SILENCIOSOS (SEM EXAGERO) */
+
         .hero-reveal-up {
             opacity: 0;
             animation: revealUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
@@ -137,7 +135,6 @@
             }
         }
 
-        /* Headline Vertical Reveal Ultrassutil */
         .reveal-line-clip {
             display: inline-block;
             overflow: hidden;
@@ -165,7 +162,6 @@
             }
         }
 
-        /* Image Masking Fade & Scale Suave */
         .hero-image-reveal {
             opacity: 0;
             animation: revealImage 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -183,22 +179,18 @@
             }
         }
 
-        /* 3. BOTÕES PREMIUM (Baseados nos Design Systems) */
         .btn-shimmer {
             position: relative;
             overflow: hidden;
             border-radius: 9999px;
             padding: 1.5px;
-            /* Espaço para a borda animada */
             background: #141414;
-            /* shadow-brand para o hover */
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .btn-shimmer:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12), 0 0 20px rgba(191, 168, 143, 0.15);
-            /* Brand glow */
         }
 
         .btn-shimmer::before {
@@ -259,6 +251,152 @@
             border: 1px solid rgba(255, 255, 255, 0.6);
         }
 
+        /* 4. SCROLL ANIMATIONS CRIAÇÃO DA SEÇÃO 2 */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-up.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-scale.in-view {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .reveal-blur {
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(20px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1), filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-blur.in-view {
+            opacity: 1;
+            filter: blur(0px);
+            transform: translateY(0);
+        }
+
+        /* 5. FORMULÁRIO DE CONTATO (Interação Elegante) */
+        .input-premium {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #EDEDED;
+            border-radius: 1rem;
+            padding: 1rem 1.25rem;
+            font-size: 14px;
+            color: #171717;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            outline: none;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.01);
+        }
+
+        .input-premium:focus {
+            border-color: #BFA88F;
+            box-shadow: 0 0 0 4px rgba(191, 168, 143, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .input-premium::placeholder {
+            color: #A3A3A3;
+            font-weight: 300;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 10px;
+            font-family: monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #737373;
+            margin-bottom: 0.5rem;
+            margin-left: 0.5rem;
+        }
+
+        .select-premium {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23BFA88F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2em;
+        }
+
+        /* Hover Cards Interativos (Serviços) */
+        .service-card {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #BFA88F;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .service-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+            border-color: #E6D8CA;
+            background: #ffffff;
+        }
+
+        /* Hover Glow Diferenciais */
+        .diff-chip {
+            transition: all 0.4s ease;
+        }
+
+        .diff-chip:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(191, 168, 143, 0.1);
+            border-color: rgba(191, 168, 143, 0.4);
+        }
+
+        /* Botão Sweep Effect na seção escura */
+        .btn-sweep {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-sweep::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: #BFA88F;
+            z-index: -1;
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-sweep:hover::before {
+            width: 100%;
+        }
+
         /* Flashlight Effect do Design System */
         .flashlight-card {
             position: relative;
@@ -277,7 +415,6 @@
             z-index: 10;
         }
 
-        /* Não aplicar translate no hover se ele já está flutuando, apenas box-shadow */
         .flashlight-card:hover {
             box-shadow: 0 15px 40px rgba(199, 167, 119, 0.15);
         }
@@ -297,11 +434,11 @@
 
 <body class="relative antialiased selection:bg-brand-500 selection:text-white">
 
-    <!-- 1. HEADER (Otimizado Mobile) -->
+
     <header id="main-header" class="fixed top-0 w-full z-50 py-5 sm:py-6 border-b border-transparent">
         <div class="max-w-[85rem] mx-auto px-5 lg:px-12 flex items-center justify-between">
 
-            <!-- Logo -->
+
             <a href="#inicio"
                 class="font-heading font-medium text-[22px] sm:text-[24px] tracking-tight text-neutral-900 flex items-center gap-2.5 transition-opacity hover:opacity-80">
                 <div
@@ -311,15 +448,15 @@
                 Maria Ines
             </a>
 
-            <!-- Navegação Desktop -->
+
             <nav class="hidden lg:flex items-center gap-9 font-sans text-[14px] font-medium text-neutral-600">
                 <a href="#inicio" class="hover:text-brand-700 transition-colors">Início</a>
-                <a href="#diferenciais" class="hover:text-brand-700 transition-colors">Diferenciais</a>
-                <a href="#curadoria" class="hover:text-brand-700 transition-colors">Serviços</a>
+                <a href="#diferenciais" class="hover:text-brand-700 transition-colors">Serviços</a>
+                <a href="#curadoria" class="hover:text-brand-700 transition-colors">Avaliações</a>
                 <a href="#contato" class="hover:text-brand-700 transition-colors">Contato</a>
             </nav>
 
-            <!-- CTA Desktop -->
+
             <div class="hidden lg:flex items-center">
                 <a href="#contato"
                     class="px-6 py-2.5 rounded-full bg-white/70 backdrop-blur-md border border-neutral-200 text-[13.5px] font-semibold text-neutral-800 hover:bg-white hover:border-brand-300 hover:text-brand-700 transition-all shadow-[0_2px_10px_rgba(0,0,0,0.02)] flex items-center gap-2 group">
@@ -329,7 +466,6 @@
                 </a>
             </div>
 
-            <!-- Mobile Menu Toggle -->
             <button
                 class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full bg-white/70 backdrop-blur border border-neutral-200 text-neutral-900 hover:text-brand-600 transition-colors">
                 <i data-lucide="menu" class="w-5 h-5 stroke-[1.5]"></i>
@@ -337,7 +473,6 @@
         </div>
     </header>
 
-    <!-- 2. HERO PRINCIPAL -->
     <main class="w-full relative overflow-hidden">
         <div class="bg-ambient w-[600px] h-[600px] sm:w-[800px] sm:h-[800px] top-[-150px] left-[-150px] animate-float">
         </div>
@@ -348,11 +483,9 @@
             <div
                 class="max-w-[85rem] mx-auto w-full grid lg:grid-cols-12 gap-12 lg:gap-10 items-center z-10 pt-2 sm:pt-4">
 
-                <!-- [ESQUERDA - TEXTO RESPONSIVO] -->
                 <div class="lg:col-span-6 flex flex-col items-start relative z-20">
 
                     <div class="w-full relative">
-                        <!-- Eyebrow -->
                         <div class="hero-reveal-up" style="animation-delay: 0.1s;">
                             <div
                                 class="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full border border-brand-200/60 bg-white/60 backdrop-blur-md shadow-sm text-neutral-700 text-[11px] sm:text-[12px] font-medium tracking-wide">
@@ -362,7 +495,6 @@
                             </div>
                         </div>
 
-                        <!-- Headline Vertical Reveal -->
                         <h1
                             class="mt-6 sm:mt-8 text-[2.5rem] leading-[1.08] sm:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-heading font-normal tracking-[-0.01em] text-neutral-900">
                             <span class="reveal-line-clip"><span class="hero-reveal-line"
@@ -374,18 +506,15 @@
                                     style="animation-delay: 0.4s">e proximidade.</span></span>
                         </h1>
 
-                        <!-- Subheadline -->
                         <p class="mt-5 sm:mt-6 text-[15.5px] sm:text-[17px] text-neutral-500 max-w-[480px] font-sans font-light leading-[1.65] hero-reveal-up"
                             style="animation-delay: 0.5s;">
                             Compra, venda e locação com curadoria sob medida. Minha prioridade é o seu tempo, o seu
                             patrimônio e a sua tranquilidade até a assinatura final.
                         </p>
 
-                        <!-- CTAs (Stack Mobile Seamless) -->
                         <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-5 hero-reveal-up w-full sm:w-auto"
                             style="animation-delay: 0.6s;">
 
-                            <!-- Botão Primário Design System 2 -->
                             <button
                                 class="btn-shimmer w-full sm:w-auto h-[52px] sm:h-[54px] shadow-[0_6px_15px_rgba(0,0,0,0.06)] group">
                                 <span class="btn-shimmer-inner px-8 gap-3">
@@ -399,7 +528,6 @@
                                 </span>
                             </button>
 
-                            <!-- Botão Secundário WhatsApp Hover Design System 2 (Glow) -->
                             <a href="#"
                                 class="w-full sm:w-auto h-[52px] sm:h-[54px] px-8 rounded-full bg-white border border-neutral-200 text-[14.5px] font-medium text-neutral-700 hover:text-brand-700 hover:border-brand-500 hover:shadow-[0_0_20px_rgba(191,168,143,0.3)] transition-all duration-300 flex items-center justify-center gap-2.5 shadow-sm group">
 
@@ -415,7 +543,6 @@
                             </a>
                         </div>
 
-                        <!-- Microdestaques Responsivos -->
                         <div
                             class="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-brand-200/40 grid grid-cols-1 sm:grid-cols-2 gap-y-3.5 sm:gap-y-5 gap-x-6">
                             <div class="flex items-center gap-3 text-[13.5px] sm:text-[14px] text-neutral-700 font-medium hero-reveal-up"
@@ -440,7 +567,7 @@
                                     class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white flex items-center justify-center border border-neutral-200 shadow-sm shrink-0">
                                     <i data-lucide="gem" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-600"></i>
                                 </div>
-                                Curadoria sob medida
+                                Consultoria sob medida
                             </div>
                             <div class="flex items-center gap-3 text-[13.5px] sm:text-[14px] text-neutral-700 font-medium hero-reveal-up"
                                 style="animation-delay: 0.85s;">
@@ -448,24 +575,20 @@
                                     class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white flex items-center justify-center border border-neutral-200 shadow-sm shrink-0">
                                     <i data-lucide="clock" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-600"></i>
                                 </div>
-                                Acompanhamento próximo
+                                Acompanhamento contínuo
                             </div>
                         </div>
                     </div>
 
                 </div>
 
-                <!-- [DIREITA - IMAGEM EDITORIAL E RESPONSIVA] -->
                 <div class="lg:col-span-6 relative w-full mt-6 sm:mt-12 lg:mt-0 lg:pl-6 xl:pl-10 flex items-center justify-center lg:justify-end hero-image-reveal"
                     style="animation-delay: 0.6s;">
 
-                    <!-- Imagem Art Direction Transformada no Card do Design System 2 -->
                     <div
                         class="w-full max-w-[360px] sm:max-w-[420px] bg-white/95 backdrop-blur-xl p-3.5 sm:p-4 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-white transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(191,168,143,0.18)] cursor-pointer group relative mx-auto lg:mr-0 z-30">
 
-                        <!-- Overlay Imagem -->
                         <div class="w-full aspect-[4/5] rounded-[1.5rem] overflow-hidden relative mb-4">
-                            <!-- Badge de Disponibilidade Superior (Baseado no DS2) -->
                             <div
                                 class="absolute top-4 right-4 bg-white/90 backdrop-blur pl-3 pr-2.5 py-1.5 rounded-full flex items-center gap-2 shadow-[0_4px_10px_rgba(0,0,0,0.08)] z-20 transition-transform duration-500 group-hover:scale-105">
                                 <span class="w-2 h-2 rounded-full bg-green-500 animate-[pulse_2s_infinite]"></span>
@@ -473,18 +596,15 @@
                                     class="text-[11px] font-bold text-neutral-900 uppercase tracking-widest leading-none pt-px">Disponível</span>
                             </div>
 
-                            <!-- Gradiente de profundidade fotográfica (warm tint) -->
                             <div
                                 class="absolute inset-0 bg-gradient-to-tr from-[#3a2818]/30 via-transparent to-transparent mix-blend-multiply z-10 transition-opacity duration-[2s] ease-in-out group-hover:opacity-60">
                             </div>
 
-                            <!-- Foto focada na pessoa, com leve saturação/contraste e hover do Design System -->
                             <img src="assets/raw_files/e829204a-c23a-4b96-a0cb-f7a3d9f27a08.jpg"
                                 alt="Atendimento imobiliário especialista"
                                 class="w-full h-full object-cover object-[center_15%] sm:object-[center_20%] saturate-[1.05] contrast-[1.03] transition-transform duration-700 group-hover:scale-105 origin-center" />
                         </div>
 
-                        <!-- Rodapé do Card do DS2 (Adaptado para a corretora) -->
                         <div class="px-2 pb-1 text-left flex justify-between items-end">
                             <div>
                                 <h3 class="font-heading text-[22px] font-semibold text-neutral-900 mb-1 tracking-tight">
@@ -496,7 +616,6 @@
                             </div>
                         </div>
 
-                        <!-- Card Flutuante 1 (Exatamente a versão Premium Selection do DS2) -->
                         <div class="flashlight-card absolute top-12 sm:top-16 -left-4 sm:-left-12 lg:-left-20 bg-white/95 backdrop-blur-xl py-3.5 px-4.5 rounded-[1.25rem] shadow-[0_15px_40px_rgba(0,0,0,0.08)] border border-white z-40 flex items-center gap-3.5 animate-float hero-reveal-up"
                             style="animation-delay: 1.1s;">
                             <div
@@ -511,7 +630,6 @@
                             </div>
                         </div>
 
-                        <!-- Card Flutuante 2 (Prova Social re-configurada) -->
                         <div class="flashlight-card absolute -bottom-5 sm:-bottom-6 -right-2 sm:-right-8 bg-white/95 backdrop-blur-xl py-3 px-4 rounded-[1.25rem] shadow-[0_15px_30px_rgba(0,0,0,0.06)] border border-white z-40 flex items-center gap-3 animate-float-delayed hero-reveal-up"
                             style="animation-delay: 1.2s; animation-direction: reverse;">
                             <div class="flex -space-x-2 shrink-0">
@@ -539,11 +657,447 @@
         </section>
     </main>
 
-    <!-- Scripts -->
+    <!-- 2. SERVIÇOS / CURADORIA -->
+    <section id="servicos" class="py-24 sm:py-32 relative bg-white overflow-hidden border-t border-neutral-100">
+        <!-- Decorador de Fundo Base -->
+        <div
+            class="absolute inset-0 pointer-events-none opacity-[0.02] bg-[url('https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/noise.png')] mix-blend-multiply">
+        </div>
+        <div
+            class="absolute top-[10%] right-[-5%] w-[500px] h-[500px] bg-brand-200/20 blur-[100px] rounded-full pointer-events-none">
+        </div>
+
+        <div class="max-w-[85rem] mx-auto px-5 lg:px-12 relative z-10">
+            <!-- Header elegante -->
+            <div class="max-w-3xl mx-auto text-center mb-16 sm:mb-20 reveal-up">
+                <span
+                    class="text-[11px] font-mono uppercase tracking-widest text-brand-600 mb-4 font-semibold flex items-center justify-center gap-2">
+                    <span class="w-8 h-px bg-brand-300"></span>
+                    Exclusividade e método
+                    <span class="w-8 h-px bg-brand-300"></span>
+                </span>
+                <h2
+                    class="text-[32px] sm:text-[40px] lg:text-[48px] font-heading font-normal text-neutral-900 leading-[1.1] tracking-tight mb-6 mt-4">
+                    Serviços imobiliários com atendimento <span
+                        class="italic text-brand-600 font-serif pr-1">próximo</span> e estratégico.
+                </h2>
+                <p
+                    class="text-neutral-500 font-sans font-light leading-[1.7] text-[16px] sm:text-[17px] max-w-2xl mx-auto">
+                    Cada atendimento é conduzido de forma personalizada, considerando o seu momento, o seu objetivo e o
+                    tipo de imóvel ideal para a sua necessidade. Mais do que intermediar negociações, o trabalho é
+                    oferecer <strong class="font-normal text-neutral-800">direção, tranquilidade e suporte</strong> em
+                    todo o processo.
+                </p>
+            </div>
+
+            <!-- 4 Cards Criativos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-20 lg:mb-28">
+
+                <div class="service-card reveal-up bg-neutral-50/70 border border-neutral-100 rounded-2xl p-8 lg:p-10 group"
+                    style="transition-delay: 0.1s;">
+                    <div
+                        class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-brand-500 mb-8 transform group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all duration-500">
+                        <i data-lucide="key" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-[19px] font-heading font-semibold text-neutral-900 mb-4">Compra de imóveis</h3>
+                    <p class="text-[14px] text-neutral-500 font-medium leading-[1.65]">Apoio na busca pelo imóvel ideal,
+                        considerando perfil, objetivos, localização e orçamento, para uma escolha segura.</p>
+                </div>
+
+                <div class="service-card reveal-up bg-neutral-50/70 border border-neutral-100 rounded-2xl p-8 lg:p-10 group"
+                    style="transition-delay: 0.2s;">
+                    <div
+                        class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-brand-500 mb-8 transform group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all duration-500">
+                        <i data-lucide="arrow-right-left" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-[19px] font-heading font-semibold text-neutral-900 mb-4">Venda de imóveis</h3>
+                    <p class="text-[14px] text-neutral-500 font-medium leading-[1.65]">Condução estratégica do processo
+                        de venda, com organização, clareza e valorização real do patrimônio.</p>
+                </div>
+
+                <div class="service-card reveal-up bg-neutral-50/70 border border-neutral-100 rounded-2xl p-8 lg:p-10 group"
+                    style="transition-delay: 0.3s;">
+                    <div
+                        class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-brand-500 mb-8 transform group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all duration-500">
+                        <i data-lucide="home" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-[19px] font-heading font-semibold text-neutral-900 mb-4">Locação de imóveis</h3>
+                    <p class="text-[14px] text-neutral-500 font-medium leading-[1.65]">Suporte para tornar a locação
+                        mais simples, segura e direcionada, com apoio em toda a etapa contratual.</p>
+                </div>
+
+                <div class="service-card reveal-up bg-neutral-50/70 border border-neutral-100 rounded-2xl p-8 lg:p-10 group"
+                    style="transition-delay: 0.4s;">
+                    <div
+                        class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-brand-500 mb-8 transform group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all duration-500">
+                        <i data-lucide="compass" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-[19px] font-heading font-semibold text-neutral-900 mb-4">Consultoria imobiliária
+                    </h3>
+                    <p class="text-[14px] text-neutral-500 font-medium leading-[1.65]">Orientação profissional para quem
+                        deseja entender melhor o momento, avaliar possibilidades e decidir com confiança.</p>
+                </div>
+
+            </div>
+
+            <!-- Diferenciais Box (Dark Premium Theme Inspirado no DS1) -->
+            <div
+                class="reveal-scale bg-[#0a0a0a] rounded-[2.5rem] p-8 sm:p-14 lg:p-20 relative overflow-hidden flex flex-col items-center text-center shadow-[0_30px_60px_rgba(0,0,0,0.15)] border border-neutral-800">
+                <!-- Efeito Iluminação Interna -->
+                <div
+                    class="absolute w-full h-[300px] bg-brand-500/10 blur-[100px] rounded-full top-[-150px] pointer-events-none z-0">
+                </div>
+                <div
+                    class="absolute w-[400px] h-[400px] bg-white/5 blur-[80px] rounded-full bottom-[-200px] left-[-100px] pointer-events-none z-0">
+                </div>
+
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[10px] font-mono uppercase tracking-widest text-brand-400 mb-10 z-10 backdrop-blur-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand-400 animate-pulse"></span>
+                    Por que escolher
+                </div>
+
+                <h3
+                    class="text-[28px] sm:text-[34px] font-heading font-normal text-white mb-10 relative z-10 tracking-tight">
+                    Diferenciais do Atendimento</h3>
+
+                <!-- Chips Diferenciais -->
+                <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-16 relative z-10 w-full max-w-4xl">
+                    <span
+                        class="diff-chip px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-200 text-[13.5px] font-medium backdrop-blur-md flex items-center gap-2.5 cursor-default">
+                        <i data-lucide="fingerprint" class="w-4 h-4 text-brand-400"></i> Atendimento personalizado
+                    </span>
+                    <span
+                        class="diff-chip px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-200 text-[13.5px] font-medium backdrop-blur-md flex items-center gap-2.5 cursor-default">
+                        <i data-lucide="message-square" class="w-4 h-4 text-brand-400"></i> Comunicação clara
+                    </span>
+                    <span
+                        class="diff-chip px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-200 text-[13.5px] font-medium backdrop-blur-md flex items-center gap-2.5 cursor-default">
+                        <i data-lucide="users" class="w-4 h-4 text-brand-400"></i> Acompanhamento próximo
+                    </span>
+                    <span
+                        class="diff-chip px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-200 text-[13.5px] font-medium backdrop-blur-md flex items-center gap-2.5 cursor-default">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-brand-400"></i> Negociação com segurança
+                    </span>
+                    <span
+                        class="diff-chip px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-200 text-[13.5px] font-medium backdrop-blur-md flex items-center gap-2.5 cursor-default">
+                        <i data-lucide="map" class="w-4 h-4 text-brand-400"></i> Orientação sob medida
+                    </span>
+                    <span
+                        class="diff-chip px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-200 text-[13.5px] font-medium backdrop-blur-md flex items-center gap-2.5 cursor-default">
+                        <i data-lucide="clock" class="w-4 h-4 text-brand-400"></i> Cuidado com patrimônio
+                    </span>
+                </div>
+
+                <div
+                    class="h-px w-full max-w-2xl bg-gradient-to-r from-transparent via-white/15 to-transparent mb-12 relative z-10">
+                </div>
+
+                <h4 class="text-[20px] sm:text-[24px] font-heading font-normal text-white mb-8 relative z-10">Vamos
+                    conversar sobre o seu momento imobiliário?</h4>
+
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 relative z-10 w-full sm:w-auto mt-2">
+                    <!-- Botao Primario Animado (Sweep Effect) -->
+                    <button
+                        class="btn-sweep px-8 h-[54px] rounded-full border border-brand-500 bg-neutral-900 text-[14.5px] font-medium flex items-center justify-center gap-3 text-white group shadow-[0_4px_15px_rgba(191,168,143,0.15)] w-full sm:w-auto">
+                        <span class="relative z-10 group-hover:text-neutral-900 transition-colors duration-400">Agendar
+                            atendimento</span>
+                        <div
+                            class="relative z-10 w-6 h-6 rounded-full bg-white/10 group-hover:bg-neutral-900/10 flex items-center justify-center transition-colors shadow-[0_0_10px_rgba(255,255,255,0.1)]">
+                            <i data-lucide="calendar"
+                                class="w-3.5 h-3.5 text-brand-300 group-hover:text-neutral-900 group-hover:scale-110 transition-all duration-300"></i>
+                        </div>
+                    </button>
+
+                    <!-- Botao Secundario (Ghost Outline Moderno) -->
+                    <a href="#"
+                        class="h-[54px] px-8 rounded-full border border-white/20 text-[14.5px] font-medium text-white hover:bg-white hover:text-neutral-900 transition-all duration-400 flex items-center justify-center gap-2.5 group w-full sm:w-auto backdrop-blur-sm">
+                        <i data-lucide="message-circle"
+                            class="w-4 h-4 text-brand-400 group-hover:text-brand-600 transition-colors duration-300 group-hover:-rotate-12"></i>
+                        Falar no WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. AVALIAÇÕES / PROVA SOCIAL -->
+    <section id="avaliacoes" class="py-24 sm:py-32 relative bg-[#FBFaF8] border-t border-neutral-100 overflow-hidden">
+        <div class="max-w-[85rem] mx-auto px-5 lg:px-12 relative z-10">
+
+            <!-- Header Compacto -->
+            <div class="text-center mb-16 sm:mb-20 reveal-up">
+                <h2
+                    class="text-[28px] sm:text-[36px] lg:text-[40px] font-heading font-normal text-neutral-900 leading-[1.1] tracking-tight mb-4">
+                    O que dizem sobre o atendimento
+                </h2>
+                <p
+                    class="text-neutral-500 font-sans font-light text-[15.5px] sm:text-[16.5px] leading-[1.6] max-w-xl mx-auto">
+                    Experiências de clientes que buscaram mais <strong class="font-normal text-neutral-800">segurança,
+                        clareza e proximidade</strong> em cada etapa.
+                </p>
+            </div>
+
+            <!-- Grid de Reviews (Premium Google-Style) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+
+                <!-- Avaliação 1 -->
+                <div class="bg-white rounded-[1.5rem] p-8 lg:p-10 shadow-[0_15px_40px_rgba(0,0,0,0.03)] border border-neutral-100/80 hover:-translate-y-2 transition-all duration-500 hover:shadow-[0_25px_50px_rgba(191,168,143,0.12)] reveal-blur flex flex-col h-full"
+                    style="transition-delay: 0.1s;">
+                    <div class="flex items-center gap-1.5 mb-6">
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                    </div>
+                    <p class="text-[14.5px] text-neutral-600 font-light leading-[1.75] mb-8 italic flex-grow">
+                        "Fui atendida com muita atenção do início ao fim. Todo o processo foi conduzido com clareza e
+                        segurança."
+                    </p>
+                    <div class="flex items-center gap-3.5 mt-auto pt-5 border-t border-neutral-50">
+                        <div
+                            class="w-9 h-9 rounded-full bg-brand-50 flex items-center justify-center text-[12px] font-semibold text-brand-700">
+                            ML
+                        </div>
+                        <span class="text-[14.5px] font-medium text-neutral-900 tracking-tight">Mariana Lopes</span>
+                    </div>
+                </div>
+
+                <!-- Avaliação 2 -->
+                <div class="bg-white rounded-[1.5rem] p-8 lg:p-10 shadow-[0_15px_40px_rgba(0,0,0,0.03)] border border-neutral-100/80 hover:-translate-y-2 transition-all duration-500 hover:shadow-[0_25px_50px_rgba(191,168,143,0.12)] reveal-blur flex flex-col h-full"
+                    style="transition-delay: 0.25s;">
+                    <div class="flex items-center gap-1.5 mb-6">
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                    </div>
+                    <p class="text-[14.5px] text-neutral-600 font-light leading-[1.75] mb-8 italic flex-grow">
+                        "O atendimento foi muito próximo e cuidadoso. Me senti tranquila em cada etapa da negociação."
+                    </p>
+                    <div class="flex items-center gap-3.5 mt-auto pt-5 border-t border-neutral-50">
+                        <div
+                            class="w-9 h-9 rounded-full bg-brand-50 flex items-center justify-center text-[12px] font-semibold text-brand-700">
+                            FA
+                        </div>
+                        <span class="text-[14.5px] font-medium text-neutral-900 tracking-tight">Fernanda Alves</span>
+                    </div>
+                </div>
+
+                <!-- Avaliação 3 -->
+                <div class="bg-white rounded-[1.5rem] p-8 lg:p-10 shadow-[0_15px_40px_rgba(0,0,0,0.03)] border border-neutral-100/80 hover:-translate-y-2 transition-all duration-500 hover:shadow-[0_25px_50px_rgba(191,168,143,0.12)] reveal-blur flex flex-col h-full"
+                    style="transition-delay: 0.4s;">
+                    <div class="flex items-center gap-1.5 mb-6">
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-brand-400 text-brand-400"></i>
+                    </div>
+                    <p class="text-[14.5px] text-neutral-600 font-light leading-[1.75] mb-8 italic flex-grow">
+                        "Profissional extremamente atenciosa, organizada e transparente. Trouxe confiança num momento
+                        tão importante."
+                    </p>
+                    <div class="flex items-center gap-3.5 mt-auto pt-5 border-t border-neutral-50">
+                        <div
+                            class="w-9 h-9 rounded-full bg-brand-50 flex items-center justify-center text-[12px] font-semibold text-brand-700">
+                            CR
+                        </div>
+                        <span class="text-[14.5px] font-medium text-neutral-900 tracking-tight">Camila Rocha</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. CONTATO -->
+    <section id="contato" class="py-24 sm:py-32 relative bg-white overflow-hidden border-t border-neutral-100/50">
+        <!-- Decorador -->
+        <div
+            class="absolute top-[20%] left-[-10%] w-[600px] h-[600px] bg-brand-200/20 blur-[120px] rounded-full pointer-events-none z-0">
+        </div>
+
+        <div class="max-w-[85rem] mx-auto px-5 lg:px-12 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+
+                <!-- Coluna Mensagem e Info (Esquerda) -->
+                <div class="lg:col-span-5 reveal-up">
+                    <span
+                        class="text-[11px] font-mono uppercase tracking-widest text-brand-600 mb-6 font-semibold flex items-center gap-2">
+                        <span class="w-8 h-px bg-brand-300"></span> Conexão direta
+                    </span>
+                    <h2
+                        class="text-[34px] lg:text-[42px] font-heading font-normal text-neutral-900 leading-[1.1] tracking-tight mb-6">
+                        Vamos conversar sobre o <span class="block">seu <span
+                                class="italic text-brand-600 font-serif pr-1">imóvel</span></span>
+                    </h2>
+                    <p
+                        class="text-neutral-500 font-sans font-light leading-[1.7] text-[15.5px] sm:text-[16.5px] mb-12 max-w-[400px]">
+                        Preencha as informações ao lado para que eu possa entender melhor a sua necessidade e oferecer
+                        um atendimento mais <strong class="font-normal text-neutral-800">próximo, claro e
+                            personalizado</strong>.
+                    </p>
+
+                    <!-- Infos Box Premium -->
+                    <div
+                        class="bg-[#FBFaF8] rounded-[2rem] p-8 sm:p-10 border border-neutral-100 shadow-[0_20px_40px_rgba(0,0,0,0.02)] space-y-8 lg:max-w-md">
+                        <div class="flex items-start gap-4 group">
+                            <div
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-600 shadow-sm border border-neutral-100 group-hover:bg-brand-50 transition-colors shrink-0">
+                                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-mono uppercase tracking-widest text-neutral-400 mb-0.5">
+                                    WhatsApp / Cel</p>
+                                <a href="#"
+                                    class="text-[15px] font-medium text-neutral-900 hover:text-brand-600 transition-colors">(44)
+                                    99878-3627</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 group">
+                            <div
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-600 shadow-sm border border-neutral-100 group-hover:bg-brand-50 transition-colors shrink-0">
+                                <i data-lucide="map-pin" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-mono uppercase tracking-widest text-neutral-400 mb-0.5">
+                                    Cobertura de Atuação</p>
+                                <p class="text-[15px] font-medium text-neutral-900">Campo Mourão e Região</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 group">
+                            <div
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-600 shadow-sm border border-neutral-100 group-hover:bg-brand-50 transition-colors shrink-0">
+                                <i data-lucide="clock" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-mono uppercase tracking-widest text-neutral-400 mb-0.5">
+                                    Disponibilidade</p>
+                                <p class="text-[15px] font-medium text-neutral-900">Seg a Sex das 08h:15 às 17h:30</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 group">
+                            <div
+                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-600 shadow-sm border border-neutral-100 group-hover:bg-brand-50 transition-colors shrink-0">
+                                <i data-lucide="instagram" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-mono uppercase tracking-widest text-neutral-400 mb-0.5">
+                                    Instagram</p>
+                                <a href="#"
+                                    class="text-[15px] font-medium text-neutral-900 hover:text-brand-600 transition-colors">@marynezcorretora</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna Formulário Elegante (Direita) -->
+                <div class="lg:col-span-7 bg-[#FBFaF8] rounded-[2.5rem] p-8 sm:p-12 border border-neutral-100 shadow-[0_30px_60px_rgba(0,0,0,0.04)] reveal-scale"
+                    style="transition-delay: 0.15s;">
+                    <form action="#" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <!-- Nome -->
+                            <div class="group">
+                                <label class="input-label group-focus-within:text-brand-600 transition-colors">Nome
+                                    Completo</label>
+                                <input type="text" class="input-premium" placeholder="Como prefere ser chamado?">
+                            </div>
+                            <!-- E-mail -->
+                            <div class="group">
+                                <label
+                                    class="input-label group-focus-within:text-brand-600 transition-colors">E-mail</label>
+                                <input type="email" class="input-premium" placeholder="Seu melhor e-mail">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <!-- Telefone -->
+                            <div class="group">
+                                <label class="input-label group-focus-within:text-brand-600 transition-colors">Telefone
+                                    / WhatsApp</label>
+                                <input type="tel" class="input-premium" placeholder="(  ) _____-____">
+                            </div>
+                            <!-- Assunto Select -->
+                            <div class="group">
+                                <label class="input-label group-focus-within:text-brand-600 transition-colors">Assunto
+                                    da conversa</label>
+                                <select
+                                    class="input-premium select-premium text-neutral-500 focus:text-neutral-900 cursor-pointer">
+                                    <option value="" disabled selected>O que deseja realizar?</option>
+                                    <option value="alugar">Alugar</option>
+                                    <option value="comprar">Comprar</option>
+                                    <option value="venda">Venda</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Tipo de Imóvel -->
+                        <div class="group">
+                            <label class="input-label group-focus-within:text-brand-600 transition-colors">Perfil de
+                                imóvel</label>
+                            <select
+                                class="input-premium select-premium text-neutral-500 focus:text-neutral-900 cursor-pointer">
+                                <option value="" disabled selected>Qual perfil descreve melhor sua busca/venda?</option>
+                                <option value="apartamento">Apartamento</option>
+                                <option value="casa">Casa em alvenaria</option>
+                                <option value="sala">Sala comercial</option>
+                                <option value="sobrado">Sobrado</option>
+                            </select>
+                        </div>
+
+                        <!-- Mensagem -->
+                        <div class="group">
+                            <label class="input-label group-focus-within:text-brand-600 transition-colors">Mensagem
+                                Explicativa</label>
+                            <textarea rows="4" class="input-premium resize-none"
+                                placeholder="Conte um pouco sobre o que você procura... (Bairros de interesse, tamanho, urgência, etc)"></textarea>
+                        </div>
+
+                        <!-- Submit CTA -->
+                        <div class="pt-4">
+                            <button type="button"
+                                class="btn-shimmer shadow-[0_15px_30px_rgba(191,168,143,0.2)] group w-full h-[60px] rounded-[1.25rem]">
+                                <span class="btn-shimmer-inner gap-3"
+                                    style="background: rgba(15,15,15,0.98) !important;">
+                                    <span
+                                        class="text-white text-[15.5px] font-medium relative z-10 tracking-wide">Solicitar
+                                        atendimento</span>
+                                    <div
+                                        class="relative z-10 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white transition-all duration-400">
+                                        <i data-lucide="send"
+                                            class="w-4 h-4 text-white group-hover:scale-110 group-hover:translate-x-[1.5px] group-hover:-translate-y-[1.5px] transition-transform duration-300"></i>
+                                    </div>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER ESTRUTURAL -->
+    <footer class="border-t border-neutral-100 py-12 bg-[#FBFaF8] text-center">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col items-center">
+            <div
+                class="w-12 h-12 rounded-full border border-neutral-200 bg-white shadow-sm flex items-center justify-center mb-6">
+                <i data-lucide="gem" class="w-5 h-5 text-brand-400"></i>
+            </div>
+            <h2 class="font-serif text-2xl text-neutral-900 mb-2">Maria Ines</h2>
+            <p class="text-neutral-500 text-[13px] font-sans mb-8 tracking-wide">Consultoria Imobiliária com Direção e
+                Elegância.</p>
+            <div class="text-[10px] font-mono text-neutral-400 uppercase tracking-widest">© 2026 Direitos Reservados.
+                Desenvolvido com Antigravity.</div>
+        </div>
+    </footer>
+
     <script>
         lucide.createIcons();
 
-        // Header Blur Scrolled
         const header = document.getElementById("main-header");
         window.addEventListener("scroll", () => {
             if (window.scrollY > 30) {
@@ -553,7 +1107,6 @@
             }
         });
 
-        // Flashlight Hover Interaction tracking
         document.addEventListener("mousemove", (e) => {
             document.querySelectorAll(".flashlight-card").forEach((card) => {
                 const rect = card.getBoundingClientRect();
@@ -561,6 +1114,19 @@
                 card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
             });
         });
+
+        // Intersection Observer para revelar as animações no scroll (Seções Inferiores)
+        const revealElements = document.querySelectorAll(".reveal-up, .reveal-scale, .reveal-blur");
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("in-view");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
     </script>
 </body>
 
