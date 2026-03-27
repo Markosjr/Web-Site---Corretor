@@ -435,7 +435,7 @@
 <body class="relative antialiased selection:bg-brand-500 selection:text-white">
 
 
-    <header id="main-header" class="fixed top-0 w-full z-50 py-5 sm:py-6 border-b border-transparent">
+    <header id="#inicio" class="fixed top-0 w-full z-50 py-5 sm:py-6 border-b border-transparent">
         <div class="max-w-[85rem] mx-auto px-5 lg:px-12 flex items-center justify-between">
 
 
@@ -1077,19 +1077,23 @@
                 <!-- Coluna Formulário Elegante (Direita) -->
                 <div class="lg:col-span-7 bg-[#FBFaF8] rounded-[2.5rem] p-8 sm:p-12 border border-neutral-100 shadow-[0_30px_60px_rgba(0,0,0,0.04)] reveal-scale"
                     style="transition-delay: 0.15s;">
-                    <form action="#" class="space-y-6">
+
+                    <form id="form-contato" action="https://formspree.io/f/xjgpgwbe" method="POST" class="space-y-6">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <!-- Nome -->
                             <div class="group">
                                 <label
                                     class="input-label group-focus-within:text-brand-600 transition-colors">Nome</label>
-                                <input type="text" class="input-premium" placeholder="Seu primeiro Nome">
+                                <input type="text" name="nome" class="input-premium" placeholder="Seu primeiro Nome"
+                                    required>
                             </div>
+
                             <!-- E-mail -->
                             <div class="group">
                                 <label
                                     class="input-label group-focus-within:text-brand-600 transition-colors">E-mail</label>
-                                <input type="email" class="input-premium" placeholder="Seu melhor e-mail">
+                                <input type="email" name="email" class="input-premium" placeholder="Seu melhor e-mail"
+                                    required>
                             </div>
                         </div>
 
@@ -1099,55 +1103,65 @@
                                 <label class="input-label group-focus-within:text-brand-600 transition-colors">
                                     Telefone / WhatsApp
                                 </label>
-                                <input id="telefone" type="tel" class="input-premium" placeholder="(44) 9 9999-9999"
-                                    maxlength="16">
+                                <input id="telefone" type="tel" name="telefone" class="input-premium"
+                                    placeholder="(44) 9 9999-9999" maxlength="16" required>
                             </div>
+
                             <!-- Assunto Select -->
                             <div class="group">
-                                <label class="input-label group-focus-within:text-brand-600 transition-colors">Assunto
-                                    da conversa</label>
-                                <select
-                                    class="input-premium select-premium text-neutral-500 focus:text-neutral-900 cursor-pointer">
+                                <label class="input-label group-focus-within:text-brand-600 transition-colors">
+                                    Assunto da conversa
+                                </label>
+                                <select name="assunto"
+                                    class="input-premium select-premium text-neutral-500 focus:text-neutral-900 cursor-pointer"
+                                    required>
                                     <option value="" disabled selected>O que deseja realizar?</option>
-                                    <option value="alugar">Alugar</option>
-                                    <option value="comprar">Comprar</option>
-                                    <option value="venda">Venda</option>
-                                    <option value="outro">Outro</option>
+                                    <option value="Alugar">Alugar</option>
+                                    <option value="Comprar">Comprar</option>
+                                    <option value="Venda">Venda</option>
+                                    <option value="Outro">Outro</option>
                                 </select>
                             </div>
                         </div>
 
                         <!-- Tipo de Imóvel -->
                         <div class="group">
-                            <label class="input-label group-focus-within:text-brand-600 transition-colors">Perfil de
-                                imóvel</label>
-                            <select
-                                class="input-premium select-premium text-neutral-500 focus:text-neutral-900 cursor-pointer">
+                            <label class="input-label group-focus-within:text-brand-600 transition-colors">
+                                Perfil de imóvel
+                            </label>
+                            <select name="perfil_imovel"
+                                class="input-premium select-premium text-neutral-500 focus:text-neutral-900 cursor-pointer"
+                                required>
                                 <option value="" disabled selected>Qual perfil descreve melhor sua busca/venda?</option>
-                                <option value="apartamento">Apartamento</option>
-                                <option value="casa">Casa em alvenaria</option>
-                                <option value="sala">Sala comercial</option>
-                                <option value="sobrado">Sobrado</option>
+                                <option value="Apartamento">Apartamento</option>
+                                <option value="Casa em alvenaria">Casa em alvenaria</option>
+                                <option value="Sala comercial">Sala comercial</option>
+                                <option value="Sobrado">Sobrado</option>
                             </select>
                         </div>
 
                         <!-- Mensagem -->
                         <div class="group">
-                            <label class="input-label group-focus-within:text-brand-600 transition-colors">Mensagem
-                                Explicativa</label>
-                            <textarea rows="4" class="input-premium resize-none"
-                                placeholder="Conte um pouco sobre o que você procura... (Bairros de interesse, tamanho, urgência, etc)"></textarea>
+                            <label class="input-label group-focus-within:text-brand-600 transition-colors">
+                                Mensagem Explicativa
+                            </label>
+                            <textarea rows="4" name="mensagem" class="input-premium resize-none"
+                                placeholder="Conte um pouco sobre o que você procura... (Bairros de interesse, tamanho, urgência, etc)"
+                                required></textarea>
                         </div>
+
+                        <!-- Anti-spam simples -->
+                        <input type="text" name="_gotcha" style="display:none">
 
                         <!-- Submit CTA -->
                         <div class="pt-4">
-                            <button type="button"
+                            <button type="submit"
                                 class="btn-shimmer shadow-[0_15px_30px_rgba(191,168,143,0.2)] group w-full h-[60px] rounded-[1.25rem]">
                                 <span class="btn-shimmer-inner gap-3"
                                     style="background: rgba(15,15,15,0.98) !important;">
-                                    <span
-                                        class="text-white text-[15.5px] font-medium relative z-10 tracking-wide">Solicitar
-                                        atendimento</span>
+                                    <span class="text-white text-[15.5px] font-medium relative z-10 tracking-wide">
+                                        Solicitar atendimento
+                                    </span>
                                     <div
                                         class="relative z-10 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white transition-all duration-400">
                                         <i data-lucide="send"
@@ -1156,6 +1170,9 @@
                                 </span>
                             </button>
                         </div>
+
+                        <!-- Mensagem de retorno -->
+                        <p id="mensagem-status" class="text-sm text-neutral-600 pt-2"></p>
                     </form>
                 </div>
             </div>
@@ -1170,9 +1187,11 @@
                 <i data-lucide="gem" class="w-5 h-5 text-brand-400"></i>
             </div>
             <h2 class="font-serif text-2xl text-neutral-900 mb-2">Maria Ines</h2>
-            <p class="text-neutral-500 text-[13px] font-sans mb-8 tracking-wide">Consultoria Imobiliária com Direção e
-                Elegância.</p>
-            <div class="text-[10px] font-mono text-neutral-400 uppercase tracking-widest">© 2026 Direitos Reservados.
+            <p class="text-neutral-500 text-[13px] font-sans mb-8 tracking-wide">
+                Consultoria Imobiliária com Direção e Elegância.
+            </p>
+            <div class="text-[10px] font-mono text-neutral-400 uppercase tracking-widest">
+                © 2026 Direitos Reservados.
             </div>
         </div>
     </footer>
@@ -1270,6 +1289,62 @@
             e.target.value = valor;
         });
     </script>
+
+    <script>
+        const telefoneInput = document.getElementById('telefone');
+
+        telefoneInput.addEventListener('input', function (e) {
+            let valor = e.target.value.replace(/\D/g, '');
+            valor = valor.substring(0, 11);
+
+            if (valor.length > 0) {
+                valor = '(' + valor;
+            }
+            if (valor.length > 3) {
+                valor = valor.replace(/^(\(\d{2})(\d)/, '$1) $2');
+            }
+            if (valor.length > 4) {
+                valor = valor.replace(/^(\(\d{2}\)\s\d)(\d{4})(\d+)/, '$1 $2-$3');
+            }
+
+            e.target.value = valor;
+        });
+
+        const form = document.getElementById('form-contato');
+        const statusMensagem = document.getElementById('mensagem-status');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            statusMensagem.textContent = 'Enviando...';
+
+            const dados = new FormData(form);
+
+            try {
+                const resposta = await fetch(form.action, {
+                    method: 'POST',
+                    body: dados,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (resposta.ok) {
+                    statusMensagem.textContent = 'Mensagem enviada com sucesso.';
+                    form.reset();
+
+                    setTimeout(() => {
+                        window.location.href = window.location.pathname + '#inicio';
+                    }, 1200);
+                } else {
+                    statusMensagem.textContent = 'Não foi possível enviar. Tente novamente.';
+                }
+            } catch (erro) {
+                statusMensagem.textContent = 'Erro ao enviar. Verifique sua conexão.';
+            }
+        });
+    </script>
+
 </body>
 
 </html>
