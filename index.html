@@ -436,7 +436,7 @@
             border: 1px solid #EDEDED;
             border-radius: 1.25rem;
             padding: 1.1rem 1.4rem;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.10), 0 4px 15px rgba(0,0,0,0.04);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.10), 0 4px 15px rgba(0, 0, 0, 0.04);
             max-width: 360px;
             width: calc(100vw - 2.5rem);
             transform: translateY(20px);
@@ -444,15 +444,18 @@
             pointer-events: none;
             transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
         #toast-form.toast-visible {
             transform: translateY(0);
             opacity: 1;
             pointer-events: auto;
         }
+
         #toast-form.toast-error {
             border-color: #FCA5A5;
             background: #FFF8F8;
         }
+
         .toast-icon {
             width: 2.25rem;
             height: 2.25rem;
@@ -465,10 +468,12 @@
             flex-shrink: 0;
             margin-top: 0.1rem;
         }
+
         .toast-icon.error {
             background: #FEF2F2;
             border-color: #FECACA;
         }
+
         .toast-title {
             font-size: 14px;
             font-weight: 600;
@@ -477,12 +482,14 @@
             margin-bottom: 0.2rem;
             font-family: inherit;
         }
+
         .toast-desc {
             font-size: 12.5px;
             color: #737373;
             font-family: inherit;
             line-height: 1.5;
         }
+
         .toast-close {
             position: absolute;
             top: 0.75rem;
@@ -496,7 +503,10 @@
             font-size: 16px;
             transition: color 0.2s;
         }
-        .toast-close:hover { color: #171717; }
+
+        .toast-close:hover {
+            color: #171717;
+        }
 
         @media (max-width: 640px) {
             .image-soft-container {
@@ -1346,8 +1356,17 @@
     <!-- Toast de Notificação de Formulário -->
     <div id="toast-form" role="alert" aria-live="polite">
         <div id="toast-icon" class="toast-icon">
-            <svg id="toast-svg-ok" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <svg id="toast-svg-err" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <svg id="toast-svg-ok" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+                viewBox="0 0 24 24" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <svg id="toast-svg-err" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+                viewBox="0 0 24 24" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                style="display:none">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
         </div>
         <div>
             <p id="toast-title" class="toast-title">Mensagem enviada!</p>
@@ -1371,19 +1390,19 @@
         }
 
         // Toast helpers
-        const toast          = document.getElementById('toast-form');
-        const toastTitle     = document.getElementById('toast-title');
-        const toastDesc      = document.getElementById('toast-desc');
-        const toastIcon      = document.getElementById('toast-icon');
-        const toastSvgOk     = document.getElementById('toast-svg-ok');
-        const toastSvgErr    = document.getElementById('toast-svg-err');
-        const toastCloseBtn  = document.getElementById('toast-close-btn');
+        const toast = document.getElementById('toast-form');
+        const toastTitle = document.getElementById('toast-title');
+        const toastDesc = document.getElementById('toast-desc');
+        const toastIcon = document.getElementById('toast-icon');
+        const toastSvgOk = document.getElementById('toast-svg-ok');
+        const toastSvgErr = document.getElementById('toast-svg-err');
+        const toastCloseBtn = document.getElementById('toast-close-btn');
         let toastTimer;
 
         function showToast(type, title, desc) {
             clearTimeout(toastTimer);
             toastTitle.textContent = title;
-            toastDesc.textContent  = desc;
+            toastDesc.textContent = desc;
 
             if (type === 'success') {
                 toast.classList.remove('toast-error');
@@ -1414,7 +1433,7 @@
                 e.preventDefault();
 
                 const btnSubmit = form.querySelector('button[type="submit"]');
-                const btnText   = btnSubmit.querySelector('span.text-white');
+                const btnText = btnSubmit.querySelector('span.text-white');
                 const originalText = btnText ? btnText.textContent : '';
                 if (btnText) btnText.textContent = 'Enviando...';
                 if (btnSubmit) btnSubmit.disabled = true;
