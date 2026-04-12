@@ -541,6 +541,7 @@
 
             <nav class="hidden lg:flex items-center gap-9 font-sans text-[14px] font-medium text-neutral-600">
                 <a href="#inicio" class="hover:text-brand-700 transition-colors">Início</a>
+                <a href="#imoveis" class="hover:text-brand-700 transition-colors">Imóveis</a>
                 <a href="#servicos" class="hover:text-brand-700 transition-colors">Serviços</a>
                 <a href="#avaliacoes" class="hover:text-brand-700 transition-colors">Avaliações</a>
                 <a href="#contato" class="hover:text-brand-700 transition-colors">Contato</a>
@@ -569,6 +570,8 @@
                 class="flex flex-col px-6 py-8 gap-5 font-sans justify-center items-center text-[15px] font-medium text-neutral-600">
                 <a href="#inicio"
                     class="mobile-link text-neutral-900 w-full text-center hover:text-brand-600 transition-colors py-2">Início</a>
+                <a href="#imoveis"
+                    class="mobile-link text-neutral-900 w-full text-center hover:text-brand-600 transition-colors py-2">Imóveis</a>
                 <a href="#servicos"
                     class="mobile-link text-neutral-900 w-full text-center hover:text-brand-600 transition-colors py-2">Serviços</a>
                 <a href="#avaliacoes"
@@ -991,6 +994,46 @@
         </div>
     </section>
 
+    <!-- 2.5 IMÓVEIS -->
+    <section id="imoveis" class="py-24 sm:py-32 relative bg-white overflow-hidden border-t border-neutral-100">
+        <!-- Decorador -->
+        <div class="absolute top-[10%] left-[-5%] w-[400px] h-[400px] bg-brand-100/30 blur-[100px] rounded-full pointer-events-none"></div>
+        
+        <div class="max-w-[85rem] mx-auto px-5 lg:px-12 relative z-10">
+            <!-- Header da Seção -->
+            <div class="flex flex-col sm:flex-row justify-between items-end mb-12 sm:mb-16 reveal-up">
+                <div class="max-w-2xl">
+                    <span class="text-[11px] font-mono uppercase tracking-widest text-brand-600 mb-4 font-semibold flex items-center gap-2">
+                        <span class="w-8 h-px bg-brand-300"></span> Oportunidades Em Destaque
+                    </span>
+                    <h2 class="text-[32px] sm:text-[40px] lg:text-[44px] font-heading font-normal text-neutral-900 leading-[1.1] tracking-tight mt-4">
+                        Imóveis selecionados para <span class="italic text-brand-600 font-serif pr-1">venda e locação.</span>
+                    </h2>
+                </div>
+                <div class="mt-6 sm:mt-0 flex gap-3">
+                     <!-- Botoes de filtro visualmente apenas para manter o design premium -->
+                     <button data-filter="all" class="filter-btn px-5 py-2 rounded-full bg-neutral-900 text-white text-[13.5px] font-medium shadow-sm hover:bg-neutral-800 transition-colors">Todos</button>
+                     <button data-filter="venda" class="filter-btn px-5 py-2 rounded-full bg-white border border-neutral-200 text-neutral-600 text-[13.5px] font-medium hover:text-brand-600 hover:border-brand-300 transition-colors">Venda</button>
+                     <button data-filter="locacao" class="filter-btn px-5 py-2 rounded-full bg-white border border-neutral-200 text-neutral-600 text-[13.5px] font-medium hover:text-brand-600 hover:border-brand-300 transition-colors">Locação</button>
+                </div>
+            </div>
+
+            <!-- Grid de Imóveis (Gerado dinamicamente) -->
+            <div id="imoveis-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Os imóveis serão injetados aqui via JavaScript -->
+            </div>
+
+            <!-- Botão Ver mais (Opcional, mas dá elegância) -->
+            <div class="mt-12 text-center reveal-up">
+                <a href="#contato" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-brand-50 text-brand-700 text-[14.5px] font-semibold hover:bg-brand-600 hover:text-white transition-all duration-300 group">
+                    Solicitar outras opções
+                    <i data-lucide="search" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
     <!-- 3. AVALIAÇÕES / PROVA SOCIAL -->
     <section id="avaliacoes" class="py-24 sm:py-32 relative bg-[#FBFaF8] border-t border-neutral-100 overflow-hidden">
         <div class="max-w-[85rem] mx-auto px-5 lg:px-12 relative z-10">
@@ -1400,6 +1443,134 @@
                 e.target.value = valor;
             });
         }
+
+        // --- INTEGRAÇÃO COM API SIMULADA ---
+        async function loadImoveis() {
+            try {
+                // Em produção, isso seria um fetch para a API (ex: https://api.corretor.com/imoveis)
+                const response = await fetch('imoveis.json');
+                const imoveis = await response.json();
+                
+                const grid = document.getElementById('imoveis-grid');
+                grid.innerHTML = ''; // Limpa o loading se houver
+
+                imoveis.forEach((imovel, index) => {
+                    const isVenda = imovel.categoria === 'venda';
+                    const badgeClass = isVenda 
+                        ? 'bg-neutral-900/80 backdrop-blur-md text-white' 
+                        : 'bg-brand-600/90 backdrop-blur-md text-white';
+                    
+                    let detalhesHtml = `<i data-lucide="bed-double" class="w-4 h-4 text-brand-500"></i> ${imovel.quartos} Quartos`;
+                    if (imovel.suites > 0) detalhesHtml += ` (${imovel.suites} Suíte${imovel.suites > 1 ? 's' : ''})`;
+
+                    const delay = (index * 0.1) + 0.1;
+
+                    const html = `
+                        <a href="imovel-detalhe.html?id=${imovel.id}" data-category="${imovel.categoria}" class="property-card group block bg-white rounded-[1.5rem] border border-neutral-100/80 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_25px_50px_rgba(191,168,143,0.12)] hover:-translate-y-2 transition-all duration-500 reveal-scale" style="transition-delay: ${delay}s;">
+                            <div class="relative w-full aspect-[4/3] overflow-hidden">
+                                <div class="absolute top-4 left-4 z-20 flex gap-2">
+                                    <span class="${badgeClass} text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full">${imovel.categoria}</span>
+                                </div>
+                                <img src="${imovel.imagem_principal}" alt="${imovel.titulo}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1200ms] ease-out">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            </div>
+                            <div class="p-6">
+                                <p class="text-[12px] font-sans font-medium text-brand-600 uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                                    <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ${imovel.bairro}, ${imovel.cidade}
+                                </p>
+                                <h3 class="font-heading text-[22px] font-semibold text-neutral-900 mb-2 leading-tight">${imovel.titulo}</h3>
+                                <p class="text-[14px] text-neutral-500 font-light mb-5 line-clamp-2">${imovel.descricao_curta}</p>
+                                
+                                <div class="flex items-center gap-4 mb-5 pb-5 border-b border-neutral-100">
+                                    <div class="flex items-center gap-1.5 text-neutral-600 text-[13px] font-medium">
+                                        ${detalhesHtml}
+                                    </div>
+                                    <div class="flex items-center gap-1.5 text-neutral-600 text-[13px] font-medium">
+                                        <i data-lucide="maximize" class="w-4 h-4 text-brand-500"></i> ${imovel.area}m²
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[20px] font-semibold text-neutral-900 tracking-tight">${imovel.valor_formatado}</span>
+                                    <span class="text-[13px] font-medium text-brand-600 flex items-center gap-1 group-hover:text-brand-700 transition-colors">
+                                        Mais detalhes <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                    grid.innerHTML += html;
+                });
+
+                // Reinicializa os ícones do Lucide após injetar HTML
+                lucide.createIcons();
+                initFilterLogic();
+
+                // Dispara o observer para os novos elementos pra eles aparecerem suavemente
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                document.querySelectorAll('.reveal-scale').forEach(el => observer.observe(el));
+
+            } catch (error) {
+                console.error("Erro ao carregar os imóveis:", error);
+                document.getElementById('imoveis-grid').innerHTML = '<p class="text-neutral-500">Não foi possível carregar os imóveis no momento.</p>';
+            }
+        }
+
+        // --- Lógica de Filtro de Imóveis ---
+        function initFilterLogic() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            filterBtns.forEach(btn => {
+                // Remove existing listeners trick
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+                
+                newBtn.addEventListener('click', () => {
+                    const filter = newBtn.getAttribute('data-filter');
+                    const allBtns = document.querySelectorAll('.filter-btn');
+                    const propertyCards = document.querySelectorAll('.property-card');
+
+                    // Atualiza estilos dos botões
+                    allBtns.forEach(b => {
+                        b.classList.remove('bg-neutral-900', 'text-white');
+                        b.classList.add('bg-white', 'border-neutral-200', 'text-neutral-600');
+                    });
+                    newBtn.classList.add('bg-neutral-900', 'text-white');
+                    newBtn.classList.remove('bg-white', 'border-neutral-200', 'text-neutral-600');
+
+                    // Filtra os cards
+                    propertyCards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        if (filter === 'all' || filter === category) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'scale(1)';
+                            }, 10);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'scale(0.95)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+        }
+
+        // Chama o fetch inicial no load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadImoveis();
+        });
+        // --- Fim Integração API ---
 
         // Toast helpers
         const toast = document.getElementById('toast-form');

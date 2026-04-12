@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "categoria": "venda",
+    "tipo": "Casa",
+    "bairro": "Jardim Paulista",
+    "cidade": "Campo Mourão",
+    "titulo": "Residência Alto Padrão",
+    "descricao_curta": "Imóvel com acabamento premium, pé direito duplo e esquadrias de última geração na área social.",
+    "descricao_longa": "<p>Esta residência exclusiva localizada no prestigiado bairro Jardim Paulista redefine o conceito de morar bem em Campo Mourão. Com um projeto arquitetônico que privilegia a luz natural e a integração dos ambientes, cada detalhe foi pensado para oferecer o máximo de conforto e sofisticação.</p><p>O imóvel conta com acabamento de altíssimo padrão, incluindo pisos em porcelanato de grandes formatos, esquadrias externas em alumínio e um projeto luminotécnico completo que valoriza cada ângulo da casa.</p><p>A área social, com seu pé direito duplo, proporciona uma sensação de amplitude sem igual, conectando-se harmoniosamente à cozinha gourmet e à área externa.</p>",
+    "preco": 850000,
+    "valor_formatado": "R$ 850.000",
+    "quartos": 3,
+    "suites": 1,
+    "banheiros": 3,
+    "vagas": 2,
+    "area": 145,
+    "imagem_principal": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+    "galeria": [
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80"
+    ],
+    "diferenciais": [
+      "Ar condicionado instalado",
+      "Área Gourmet com churrasqueira",
+      "Aquecimento solar em todas as torneiras",
+      "Portão eletrônico e cerca elétrica",
+      "Móveis planejados na cozinha e banheiros",
+      "Jardim com projeto paisagístico"
+    ]
+  },
+  {
+    "id": 2,
+    "categoria": "locacao",
+    "tipo": "Apartamento",
+    "bairro": "Centro",
+    "cidade": "Campo Mourão",
+    "titulo": "Apartamento Central",
+    "descricao_curta": "Lindo apartamento totalmente mobiliado e decorado, pronto para morar. Área de lazer completa no condomínio.",
+    "descricao_longa": "<p>Localizado no coração de Campo Mourão, este apartamento no Edifício Contemporâneo é a escolha perfeita para quem busca praticidade sem abrir mão do estilo. Totalmente mobiliado com móveis planejados de excelente qualidade e eletrodomésticos modernos.</p><p>O imóvel oferece uma planta inteligente, com ambientes integrados que transmitem uma sensação de bem-estar. A sacada oferece uma vista privilegiada da cidade, ideal para relaxar ao fim do dia.</p><p>O condomínio conta com segurança 24h, salão de festas e academia equipada.</p>",
+    "preco": 2400,
+    "valor_formatado": "R$ 2.400 <span class=\"text-[14px]\">/mês + encargos</span>",
+    "quartos": 2,
+    "suites": 0,
+    "banheiros": 1,
+    "vagas": 1,
+    "area": 82,
+    "imagem_principal": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+    "galeria": [
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1556912177-88200e670977?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=600&q=80"
+    ],
+    "diferenciais": [
+      "Completamente mobiliado",
+      "Geladeira e Fogão Inox",
+      "Smart TV 50\" na sala",
+      "Máquina de lavar roupas",
+      "Sacada com envidraçamento",
+      "Wi-Fi de alta velocidade disponível"
+    ]
+  },
+  {
+    "id": 3,
+    "categoria": "venda",
+    "tipo": "Casa",
+    "bairro": "Copacabana",
+    "cidade": "Campo Mourão",
+    "titulo": "Casa Minimalista",
+    "descricao_curta": "Projeto arquitetônico contemporâneo com espaços integrados e ampla área gourmet com piscina.",
+    "descricao_longa": "<p>O design minimalista desta residência no bairro Copacabana foi planejado para quem valoriza o tempo e a tranquilidade. Com uma paleta de cores neutras e materiais naturais como madeira e concreto aparente, a casa se apresenta como um verdadeiro refúgio urbano.</p><p>Os espaços são fluidos e integrados, ligando a ampla sala de estar à varanda gourmet e à piscina com borda infinita, perfeita para receber amigos e família em um ambiente de pura elegância.</p><p>Sustentabilidade e tecnologia andam juntas aqui, com automação residencial completa e sistema de reaproveitamento de água da chuva.</p>",
+    "preco": 1350000,
+    "valor_formatado": "R$ 1.350.000",
+    "quartos": 4,
+    "suites": 2,
+    "banheiros": 4,
+    "vagas": 4,
+    "area": 210,
+    "imagem_principal": "https://images.unsplash.com/photo-1628624747186-a941c476b7ef?auto=format&fit=crop&w=800&q=80",
+    "galeria": [
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=600&q=80"
+    ],
+    "diferenciais": [
+      "Piscina com aquecimento solar",
+      "Amplo deck de madeira natural",
+      "Cozinha profissional equipada",
+      "Closet amplo na suíte master",
+      "Iluminação LED inteligente",
+      "Escritório reservado"
+    ]
+  }
+]

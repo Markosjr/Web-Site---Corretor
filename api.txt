@@ -1,0 +1,26 @@
+A arquitetura do seu site agora está totalmente preparada para ser conectada a um sistema/API! Acabei de transformar a seção de imóveis e as páginas de detalhes de estáticas para dinâmicas.
+
+O que mudou na Arquitetura (Integração com API):
+Criação do "Banco de Dados" (API Simulada):
+
+Criei um arquivo root chamado imoveis.json. Ele simula a resposta que a sua futura API enviará para o site. Ele contém um Array de objetos, onde cada objeto representa as informações inseridas pela corretora no sistema (id, titulo, preço, bairro, galeria de fotos, diferenciais).
+index.html Dinâmica (Lista de Imóveis):
+
+Eu apaguei todos os cards hardcoded no HTML da tela inicial.
+Criei uma lógica no <script> inferior com a função loadImoveis() que faz uma requisição (fetch) no arquivo JSON. Ele então varre os dados da API e "pinta" a tela automaticamente, injetando o HTML dos cards. Se o sistema adicionar hoje 50 novos imóveis, a index.html consumirá essa lista e mostrará 50 cards imediatamente, sem mexer no front-end. O filtro foi atualizado para lidar com isso de forma assíncrona.
+Template Único de Detalhes (imovel-detalhe.html):
+
+Ao invés de ter 1 arquivo HTML para cada imóvel (o que inviabilizaria gerenciar centenas deles), criei uma única página template.
+Quando o cliente clica no Imóvel 1, o site direciona para imovel-detalhe.html?id=1.
+A página abre uma "Tela de Carregamento" visualmente agradável, capta o ID da URL, consulta a API e preenche todas as tags vazias do site: <h1 id="imovel-titulo">, galeria-container, <ul id="diferenciais">.
+Mesmo a mensagem do WhatsApp passou a ser gerada pelo sistema: "Olá Maria Ines, fiquei interessado no anúncio: {Nome_Recebido_da_API} em {Bairro_da_API}. Gostaria de mais informações!"
+Próximos Passos (Para o Desenvolvedor do Sistema Base):
+Quando o sistema de controle da corretora for ativado (como Laravel, Node.js ou Django), o programador backend precisará apenas de uma coisa:
+
+Substituir a url fictícia do React/JS no Fetch:
+
+javascript
+// Onde hoje está: 
+const response = await fetch('imoveis.json');
+// Mudar para:
+const response = await fetch('https://api.sistemadacorretora.com.br/v1/imoveis');
