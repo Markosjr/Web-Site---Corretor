@@ -995,12 +995,13 @@
     </section>
 
     <!-- 2.5 IMÓVEIS -->
+    <!-- 
     <section id="imoveis" class="py-24 sm:py-32 relative bg-white overflow-hidden border-t border-neutral-100">
-        <!-- Decorador -->
+        
         <div class="absolute top-[10%] left-[-5%] w-[400px] h-[400px] bg-brand-100/30 blur-[100px] rounded-full pointer-events-none"></div>
         
         <div class="max-w-[85rem] mx-auto px-5 lg:px-12 relative z-10">
-            <!-- Header da Seção -->
+            
             <div class="flex flex-col sm:flex-row justify-between items-end mb-12 sm:mb-16 reveal-up">
                 <div class="max-w-2xl">
                     <span class="text-[11px] font-mono uppercase tracking-widest text-brand-600 mb-4 font-semibold flex items-center gap-2">
@@ -1011,19 +1012,18 @@
                     </h2>
                 </div>
                 <div class="mt-6 sm:mt-0 flex gap-3">
-                     <!-- Botoes de filtro visualmente apenas para manter o design premium -->
+                    
                      <button data-filter="all" class="filter-btn px-5 py-2 rounded-full bg-neutral-900 text-white text-[13.5px] font-medium shadow-sm hover:bg-neutral-800 transition-colors">Todos</button>
                      <button data-filter="venda" class="filter-btn px-5 py-2 rounded-full bg-white border border-neutral-200 text-neutral-600 text-[13.5px] font-medium hover:text-brand-600 hover:border-brand-300 transition-colors">Venda</button>
                      <button data-filter="locacao" class="filter-btn px-5 py-2 rounded-full bg-white border border-neutral-200 text-neutral-600 text-[13.5px] font-medium hover:text-brand-600 hover:border-brand-300 transition-colors">Locação</button>
                 </div>
             </div>
 
-            <!-- Grid de Imóveis (Gerado dinamicamente) -->
+            
             <div id="imoveis-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                <!-- Os imóveis serão injetados aqui via JavaScript -->
+                
             </div>
 
-            <!-- Botão Ver mais (Opcional, mas dá elegância) -->
             <div class="mt-12 text-center reveal-up">
                 <a href="#contato" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-brand-50 text-brand-700 text-[14.5px] font-semibold hover:bg-brand-600 hover:text-white transition-all duration-300 group">
                     Solicitar outras opções
@@ -1033,6 +1033,7 @@
 
         </div>
     </section>
+    -->
 
     <!-- 3. AVALIAÇÕES / PROVA SOCIAL -->
     <section id="avaliacoes" class="py-24 sm:py-32 relative bg-[#FBFaF8] border-t border-neutral-100 overflow-hidden">
@@ -1450,16 +1451,16 @@
                 // Em produção, isso seria um fetch para a API (ex: https://api.corretor.com/imoveis)
                 const response = await fetch('imoveis.json');
                 const imoveis = await response.json();
-                
+
                 const grid = document.getElementById('imoveis-grid');
                 grid.innerHTML = ''; // Limpa o loading se houver
 
                 imoveis.forEach((imovel, index) => {
                     const isVenda = imovel.categoria === 'venda';
-                    const badgeClass = isVenda 
-                        ? 'bg-neutral-900/80 backdrop-blur-md text-white' 
+                    const badgeClass = isVenda
+                        ? 'bg-neutral-900/80 backdrop-blur-md text-white'
                         : 'bg-brand-600/90 backdrop-blur-md text-white';
-                    
+
                     let detalhesHtml = `<i data-lucide="bed-double" class="w-4 h-4 text-brand-500"></i> ${imovel.quartos} Quartos`;
                     if (imovel.suites > 0) detalhesHtml += ` (${imovel.suites} Suíte${imovel.suites > 1 ? 's' : ''})`;
 
@@ -1526,12 +1527,12 @@
         // --- Lógica de Filtro de Imóveis ---
         function initFilterLogic() {
             const filterBtns = document.querySelectorAll('.filter-btn');
-            
+
             filterBtns.forEach(btn => {
                 // Remove existing listeners trick
                 const newBtn = btn.cloneNode(true);
                 btn.parentNode.replaceChild(newBtn, btn);
-                
+
                 newBtn.addEventListener('click', () => {
                     const filter = newBtn.getAttribute('data-filter');
                     const allBtns = document.querySelectorAll('.filter-btn');
